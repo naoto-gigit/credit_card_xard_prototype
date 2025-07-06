@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8mb4
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: root
+  password:
+  host: localhost
+
+development:
+  <<: *default
+  database: credit_card_xard_prototype_development
+
+test:
+  <<: *default
+  database: credit_card_xard_prototype_test
+
+production:
+  <<: *default
+  database: credit_card_xard_prototype_production
+  username: credit_card_xard_prototype
+  password: <%= ENV["CREDIT_CARD_XARD_PROTOTYPE_DATABASE_PASSWORD"] %>
