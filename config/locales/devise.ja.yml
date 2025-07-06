@@ -1,0 +1,43 @@
+ja:
+  devise:
+    confirmations:
+      confirmed: "メールアドレスが正常に確認されました。"
+      send_instructions: "数分以内にメールアドレス確認の案内が届きます。"
+      send_paranoid_instructions: "ご登録のメールアドレスが存在する場合、数分以内にメールアドレス確認の案内が届きます。"
+    failure:
+      already_authenticated: "すでにログインしています。"
+      unauthenticated: "続行するにはログインまたは登録が必要です。"
+      unconfirmed: "続行するにはメールアドレスの確認が必要です。"
+      locked: "アカウントがロックされています。"
+      invalid: "メールアドレスまたはパスワードが違います。"
+      timeout: "セッションがタイムアウトしました。もう一度ログインしてください。"
+      inactive: "アカウントがまだ有効化されていません。"
+    passwords:
+      send_instructions: "数分以内にパスワードリセットの案内が届きます。"
+      updated: "パスワードが正常に変更されました。ログインしました。"
+      updated_not_active: "パスワードが正常に変更されました。"
+    registrations:
+      signed_up: "ようこそ！アカウント登録が完了しました。"
+      signed_up_but_unconfirmed: "確認リンク付きのメッセージがメールアドレスに送信されました。アカウントを有効にするには、そのリンクに従ってください。"
+      signed_up_but_inactive: "アカウントがまだ有効化されていないため、ログインできません。"
+      signed_up_but_locked: "アカウントがロックされているため、ログインできません。"
+      updated: "アカウントが正常に更新されました。"
+      destroyed: "アカウントが正常に削除されました。またのご利用をお待ちしております。"
+    sessions:
+      signed_in: "ログインしました。"
+      signed_out: "ログアウトしました。"
+      already_signed_out: "ログアウトしました。"
+    unlocks:
+      send_instructions: "数分以内にアカウントロック解除の案内が届きます。"
+      unlocked: "アカウントのロックが正常に解除されました。続行するにはログインしてください。"
+    mailer:
+      confirmation_instructions:
+        subject: "メールアドレス確認の案内"
+      reset_password_instructions:
+        subject: "パスワードリセットの案内"
+      unlock_instructions:
+        subject: "アカウントロック解除の案内"
+      email_changed:
+        subject: "メールアドレスが変更されました"
+      password_change:
+        subject: "パスワードが変更されました"
