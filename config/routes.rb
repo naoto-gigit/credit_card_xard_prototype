@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post 'cards/issue', to: 'cards#issue'
+      post "cards/issue", to: "cards#issue"
     end
   end
 end
