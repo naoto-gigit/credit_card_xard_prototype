@@ -1,15 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  email: MyString
-  password_digest: MyString
-  name: MyString
-  address: MyText
-  phone_number: MyString
+  email: user_one@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  name: User One
+  address: Address One
+  phone_number: 111-1111-1111
 
 two:
-  email: MyString
-  password_digest: MyString
-  name: MyString
-  address: MyText
-  phone_number: MyString
+  email: user_two@example.com
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  name: User Two
+  address: Address Two
+  phone_number: 222-2222-2222
