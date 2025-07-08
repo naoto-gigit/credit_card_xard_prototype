@@ -7,3 +7,9 @@ ja:
         password_confirmation: パスワード（確認用）
         remember_me: ログイン情報を記憶する
         name: 名前
+      ekyc_application:
+        document_type: 本人確認書類の種類
+        document_number: 本人確認書類の番号
+        full_name: 氏名
+        date_of_birth: 生年月日
+        address: 住所

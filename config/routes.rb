@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :ekyc_applications, only: [ :new, :create ]
   get "/profile", to: "users#show", as: :profile
   get "home/index"
   devise_for :users
