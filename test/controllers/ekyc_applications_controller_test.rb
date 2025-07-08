@@ -12,7 +12,7 @@ class EkycApplicationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create ekyc_application" do
-    assert_difference('EkycApplication.count') do
+    assert_difference("EkycApplication.count") do
       post ekyc_applications_url, params: { ekyc_application: {
         document_type: "運転免許証",
         document_number: "1234567890",
