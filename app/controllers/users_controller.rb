@@ -3,5 +3,6 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user # 現在ログインしているユーザーの情報を取得
+    @latest_ekyc_application = @user.ekyc_applications.order(created_at: :desc).first
   end
 end

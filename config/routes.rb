@@ -21,4 +21,8 @@ Rails.application.routes.draw do
       post "cards/issue", to: "cards#issue"
     end
   end
+
+  namespace :webhooks do
+    post "ekyc_statuses", to: "ekyc_statuses#create"
+  end
 end

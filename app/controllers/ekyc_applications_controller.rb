@@ -9,7 +9,9 @@ class EkycApplicationsController < ApplicationController
     @ekyc_application = current_user.ekyc_applications.build(ekyc_application_params)
 
     if @ekyc_application.save
-      redirect_to profile_path, notice: "eKYC申請を受け付けました。"
+      # ジョブをキューに追加
+      EkycProcessingJob.perform_later(@ekyc_application.id)
+      redirect_to profile_path, notice: "eKYC申請を受け付けました。処理が完了次第、結果をお知らせします。"
     else
       render :new, status: :unprocessable_entity
     end

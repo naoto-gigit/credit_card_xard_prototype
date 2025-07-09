@@ -13,3 +13,6 @@ ja:
         full_name: 氏名
         date_of_birth: 生年月日
         address: 住所
+  time:
+    formats:
+      long: "%Y年%m月%d日 %H時%M分"

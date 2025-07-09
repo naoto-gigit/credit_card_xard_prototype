@@ -2,3 +2,11 @@
 
 <p><strong>名前:</strong> <%= @user.name %></p>
 <p><strong>メールアドレス:</strong> <%= @user.email %></p>
+
+<% if @latest_ekyc_application %>
+  <h2>eKYC申請状況</h2>
+  <p><strong>ステータス:</strong> <%= @latest_ekyc_application.status %></p>
+  <p><strong>申請日時:</strong> <%= l @latest_ekyc_application.created_at, format: :long %></p>
+<% else %>
+  <p>eKYC申請はまだありません。</p>
+<% end %>

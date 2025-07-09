@@ -60,7 +60,8 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-          MYSQL_DATABASE: credit_card_xard_prototype_test
+          MYSQL_DATABASE: credit_card_xard_prototype_test # Main test DB
+          MYSQL_DATABASE_QUEUE: credit_card_xard_prototype_queue_test # Queue test DB
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping -h 127.0.0.1 -u root" --health-interval=10s --health-timeout=5s --health-retries=5
@@ -81,9 +82,14 @@ jobs:
         env:
           RAILS_ENV: test
           DATABASE_URL: mysql2://root:@127.0.0.1:3306/credit_card_xard_prototype_test
+          # Add DATABASE_URL for the queue connection
+          DATABASE_URL_QUEUE: mysql2://root:@127.0.0.1:3306/credit_card_xard_prototype_queue_test
         run: |
           bin/rails db:create
           bin/rails db:migrate
+          # Create and load schema for the queue database
+          RAILS_ENV=test bin/rails runner "ActiveRecord::Tasks::DatabaseTasks.create(:queue)"
+          RAILS_ENV=test bin/rails runner "ActiveRecord::Base.establish_connection(:queue); load Rails.root.join('db', 'queue_schema.rb')"
           bin/rails test
 
       - name: Keep screenshots from failed system tests

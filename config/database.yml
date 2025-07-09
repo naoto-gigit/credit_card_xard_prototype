@@ -19,3 +19,7 @@ production:
   database: credit_card_xard_prototype_production
   username: credit_card_xard_prototype
   password: <%= ENV["CREDIT_CARD_XARD_PROTOTYPE_DATABASE_PASSWORD"] %>
+
+queue:
+  <<: *default
+  database: credit_card_xard_prototype_queue_<%= Rails.env %>
