@@ -3,10 +3,28 @@
 <p><strong>名前:</strong> <%= @user.name %></p>
 <p><strong>メールアドレス:</strong> <%= @user.email %></p>
 
+<hr>
+
 <% if @latest_ekyc_application %>
-  <h2>eKYC申請状況</h2>
-  <p><strong>ステータス:</strong> <%= @latest_ekyc_application.status %></p>
+  <h2>eKYC申請情報</h2>
   <p><strong>申請日時:</strong> <%= l @latest_ekyc_application.created_at, format: :long %></p>
+  <p><strong>ステータス:</strong> <%= @latest_ekyc_application.status %></p>
+
+  <h3>本人確認情報</h3>
+  <p><strong>書類種別:</strong> <%= @latest_ekyc_application.document_type %></p>
+  <p><strong>書類番号:</strong> <%= @latest_ekyc_application.document_number %></p>
+  <p><strong>氏名:</strong> <%= @latest_ekyc_application.full_name %></p>
+  <p><strong>生年月日:</strong> <%= @latest_ekyc_application.date_of_birth %></p>
+  <p><strong>住所:</strong> <%= @latest_ekyc_application.address %></p>
+
+  <h3>属性情報</h3>
+  <p><strong>勤務先名:</strong> <%= @latest_ekyc_application.company_name %></p>
+  <p><strong>雇用形態:</strong> <%= @latest_ekyc_application.employment_type %></p>
+  <p><strong>勤続年数:</strong> <%= @latest_ekyc_application.years_of_service %>年</p>
+  <p><strong>年収:</strong> <%= @latest_ekyc_application.annual_income %>万円</p>
+  <p><strong>他社借入額:</strong> <%= @latest_ekyc_application.other_debt %>万円</p>
+
 <% else %>
   <p>eKYC申請はまだありません。</p>
+  <%= link_to "eKYC申請を行う", new_ekyc_application_path %>
 <% end %>

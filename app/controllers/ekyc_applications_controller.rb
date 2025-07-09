@@ -20,6 +20,9 @@ class EkycApplicationsController < ApplicationController
   private
 
   def ekyc_application_params
-    params.require(:ekyc_application).permit(:document_type, :document_number, :full_name, :date_of_birth, :address)
+    params.require(:ekyc_application).permit(
+      :document_type, :document_number, :full_name, :date_of_birth, :address,
+      :company_name, :employment_type, :years_of_service, :annual_income, :other_debt
+    )
   end
 end

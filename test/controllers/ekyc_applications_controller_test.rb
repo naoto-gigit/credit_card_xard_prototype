@@ -18,7 +18,12 @@ class EkycApplicationsControllerTest < ActionDispatch::IntegrationTest
         document_number: "1234567890",
         full_name: "テスト太郎",
         date_of_birth: "2000-01-01",
-        address: "東京都"
+        address: "東京都",
+        company_name: "テスト株式会社",
+        employment_type: "正社員",
+        years_of_service: 3,
+        annual_income: 400,
+        other_debt: 50
       } }
     end
     assert_redirected_to profile_url # 成功したらprofile_urlにリダイレクトされることを確認

@@ -2,18 +2,28 @@
 
 one:
   user: one
-  status: MyString
-  document_type: MyString
-  document_number: MyString
-  full_name: MyString
-  date_of_birth: 2025-07-08
-  address: MyText
+  status: "審査中"
+  document_type: "運転免許証"
+  document_number: "123456789012"
+  full_name: "山田 太郎"
+  date_of_birth: 2000-01-01
+  address: "東京都千代田区"
+  company_name: "株式会社テスト"
+  employment_type: "正社員"
+  years_of_service: 5
+  annual_income: 500
+  other_debt: 100
 
 two:
   user: two
-  status: MyString
-  document_type: MyString
-  document_number: MyString
-  full_name: MyString
-  date_of_birth: 2025-07-08
-  address: MyText
+  status: "承認"
+  document_type: "マイナンバーカード"
+  document_number: "987654321098"
+  full_name: "鈴木 花子"
+  date_of_birth: 1995-05-15
+  address: "大阪府大阪市"
+  company_name: "サンプル株式会社"
+  employment_type: "契約社員"
+  years_of_service: 2
+  annual_income: 350
+  other_debt: 0

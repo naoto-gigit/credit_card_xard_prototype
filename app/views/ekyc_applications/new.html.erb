@@ -38,6 +38,34 @@
     <%= form.text_area :address %>
   </div>
 
+  <hr>
+  <h3>属性情報</h3>
+
+  <div class="field">
+    <%= form.label :company_name, "勤務先名" %><br />
+    <%= form.text_field :company_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :employment_type, "雇用形態" %><br />
+    <%= form.select :employment_type, ['正社員', '契約社員', '派遣社員', 'パート・アルバイト', 'その他'], prompt: '選択してください' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :years_of_service, "勤続年数" %><br />
+    <%= form.number_field :years_of_service %>
+  </div>
+
+  <div class="field">
+    <%= form.label :annual_income, "年収（万円）" %><br />
+    <%= form.number_field :annual_income %>
+  </div>
+
+  <div class="field">
+    <%= form.label :other_debt, "他社借入額（万円）" %><br />
+    <%= form.number_field :other_debt %>
+  </div>
+
   <div class="actions">
     <%= form.submit "申請する" %>
   </div>
