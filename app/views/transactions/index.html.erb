@@ -1,0 +1,20 @@
+<h1>利用明細</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>利用日</th>
+      <th>利用先</th>
+      <th>金額</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.transacted_at.strftime('%Y/%m/%d %H:%M') %></td>
+        <td><%= transaction.merchant_name %></td>
+        <td><%= number_to_currency(transaction.amount, unit: '円', precision: 0) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

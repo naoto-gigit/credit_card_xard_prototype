@@ -5,4 +5,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :cards
   has_many :card_applications
+  has_many :transactions, through: :cards
 end

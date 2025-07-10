@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  card: one
+  merchant_name: MyString
+  amount: 1
+  transacted_at: 2025-07-10 16:40:43
+
+two:
+  card: two
+  merchant_name: MyString
+  amount: 1
+  transacted_at: 2025-07-10 16:40:43

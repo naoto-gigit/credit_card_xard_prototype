@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :card_applications, only: [ :new, :create ]
+  resources :transactions, only: [ :index ]
   get "/profile", to: "users#show", as: :profile
   get "home/index"
   devise_for :users
@@ -26,5 +27,6 @@ Rails.application.routes.draw do
     post "ekyc_statuses", to: "ekyc_statuses#create"
     post "credit_scores", to: "credit_scores#create"
     post "application_results", to: "application_results#create"
+    post "card_transactions", to: "card_transactions#create"
   end
 end

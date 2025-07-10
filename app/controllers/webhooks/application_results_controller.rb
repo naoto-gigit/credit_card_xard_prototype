@@ -28,9 +28,17 @@ module Webhooks
                          0 # 否決の場合は0
         end
 
-        card_application.update(credit_decision: credit_decision, credit_limit: credit_limit)
-        Rails.logger.info "Application results webhook processed for Card Application ID: #{card_application.id}. Decision: #{credit_decision}, Limit: #{credit_limit}"
-        head :ok
+        if card_application.update(credit_decision: credit_decision, credit_limit: credit_limit)
+          if credit_decision == "承認"
+            Card.create(user: card_application.user)
+          end
+          Rails.logger.info "Application results webhook processed for Card Application ID: #{card_application.id}. Decision: #{credit_decision}, Limit: #{credit_limit}"
+          head :ok
+        else
+          # 更新に失敗した場合の処理
+          Rails.logger.error "Failed to update Card Application ID: #{card_application.id}"
+          render json: { error: "Failed to update card application." }, status: :unprocessable_entity
+        end
       else
         Rails.logger.error "Card application not found for ID: #{card_application_id}"
         render json: { error: "Card application not found." }, status: :not_found
