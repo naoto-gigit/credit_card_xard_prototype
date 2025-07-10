@@ -9,6 +9,8 @@
   <h2>カード申請情報</h2>
   <p><strong>申請日時:</strong> <%= l @latest_card_application.created_at, format: :long %></p>
   <p><strong>ステータス:</strong> <%= @latest_card_application.status %></p>
+  <p><strong>審査結果:</strong> <%= @latest_card_application.credit_decision %></p>
+  <p><strong>利用限度額:</strong> <%= @latest_card_application.credit_limit %>万円</p>
 
   <h3>本人確認情報</h3>
   <p><strong>書類種別:</strong> <%= @latest_card_application.document_type %></p>
@@ -28,3 +30,6 @@
   <p>カード申請はまだありません。</p>
   <%= link_to "カード申請を行う", new_card_application_path %>
 <% end %>
+
+<hr>
+<%= link_to "トップページへ戻る", root_path %>

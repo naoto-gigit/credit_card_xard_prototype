@@ -13,7 +13,7 @@ class CreditScoringJob < ApplicationJob
     Rails.logger.info "Card Application ID: #{card_application.id} simulated credit score: #{simulated_credit_score}."
 
     # 新しいWebhookエンドポイントに結果を送信
-    uri = URI.parse("http://localhost:3000/webhooks/credit_scores")
+    uri = URI.parse("http://localhost:3000/webhooks/application_results")
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = uri.scheme == "https"
 

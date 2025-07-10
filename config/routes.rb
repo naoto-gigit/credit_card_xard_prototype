@@ -24,5 +24,7 @@ Rails.application.routes.draw do
 
   namespace :webhooks do
     post "ekyc_statuses", to: "ekyc_statuses#create"
+    post "credit_scores", to: "credit_scores#create"
+    post "application_results", to: "application_results#create"
   end
 end
