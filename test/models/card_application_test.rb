@@ -1,6 +1,6 @@
 require "test_helper"
 
-class EkycApplicationTest < ActiveSupport::TestCase
+class CardApplicationTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

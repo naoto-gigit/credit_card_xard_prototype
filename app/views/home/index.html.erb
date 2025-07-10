@@ -7,7 +7,7 @@
   <p>こんにちは、<%= current_user.email %>さん</p>
   <%= link_to "マイページへ", profile_path %>
   <br>
-  <%= link_to "eKYC申請を行う", new_ekyc_application_path %>
+  <%= link_to "カード申請を行う", new_card_application_path %>
 <% else %>
   <p>サービスを利用するには、ログインまたは新規登録が必要です。</p>
   <%= link_to "新規登録", new_user_registration_path %>

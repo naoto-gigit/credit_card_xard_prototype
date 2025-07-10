@@ -5,10 +5,13 @@ class EkycProcessingJob < ApplicationJob
   queue_as :default
 
   def perform(ekyc_application_id)
-    ekyc_application = EkycApplication.find_by(id: ekyc_application_id)
-    return unless ekyc_application
+    card_application = CardApplication.find_by(id: ekyc_application_id)
+    return unless card_application
 
-    Rails.logger.info "eKYC Processing Job for Application ID: #{ekyc_application.id} started."
+    Rails.logger.info "eKYC Processing Job for Application ID: #{card_application.id} started."
+
+    # 10秒待機
+    sleep 10
 
     # 10秒待機
     sleep 10
@@ -20,7 +23,7 @@ class EkycProcessingJob < ApplicationJob
                          "rejected"
     end
 
-    Rails.logger.info "eKYC Application ID: #{ekyc_application.id} simulated status: #{simulated_status}."
+    Rails.logger.info "eKYC Application ID: #{card_application.id} simulated status: #{simulated_status}."
 
     # Webhookエンドポイントに結果を送信
     uri = URI.parse("http://localhost:3000/webhooks/ekyc_statuses") # URLを修正
@@ -29,15 +32,15 @@ class EkycProcessingJob < ApplicationJob
 
     request = Net::HTTP::Post.new(uri.request_uri, "Content-Type" => "application/json")
     request.body = {
-      ekyc_application_id: ekyc_application.id,
+      ekyc_application_id: card_application.id,
       status: simulated_status
     }.to_json
 
     begin
       response = http.request(request)
-      Rails.logger.info "Webhook sent for eKYC Application ID: #{ekyc_application.id}. Response: #{response.code} #{response.message}"
+      Rails.logger.info "Webhook sent for eKYC Application ID: #{card_application.id}. Response: #{response.code} #{response.message}"
     rescue StandardError => e
-      Rails.logger.error "Failed to send webhook for eKYC Application ID: #{ekyc_application.id}: #{e.message}"
+      Rails.logger.error "Failed to send webhook for eKYC Application ID: #{card_application.id}: #{e.message}"
       # エラーハンドリング: 必要に応じて、ここでジョブのリトライや別の通知を行う
     end
   rescue StandardError => e

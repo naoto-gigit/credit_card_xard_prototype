@@ -6,10 +6,10 @@ module Webhooks
       ekyc_application_id = params[:ekyc_application_id]
       status = params[:status]
 
-      ekyc_application = EkycApplication.find_by(id: ekyc_application_id)
+      card_application = CardApplication.find_by(id: ekyc_application_id)
 
-      if ekyc_application
-        ekyc_application.update(status: status)
+      if card_application
+        card_application.update(status: status)
         render json: { message: "eKYC application status updated successfully." }, status: :ok
       else
         render json: { error: "eKYC application not found." }, status: :not_found
