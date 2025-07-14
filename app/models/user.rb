@@ -20,6 +20,8 @@ class User < ApplicationRecord
   has_many :cards
   # ユーザーは複数のカード申し込みを持つことができます。
   has_many :card_applications
+  # ユーザーは複数の利用明細を持つことができます。
+  has_many :statements
   # ユーザーはカードを通じて複数の取引を持つことができます。
   has_many :transactions, through: :cards
 end
