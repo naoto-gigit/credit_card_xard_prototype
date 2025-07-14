@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_10_074043) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_13_235946) do
   create_table "card_applications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "status"
@@ -42,6 +42,28 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_074043) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "payments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "statement_id", null: false
+    t.integer "amount", default: 0, null: false
+    t.datetime "paid_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["statement_id"], name: "index_payments_on_statement_id"
+  end
+
+  create_table "statements", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.date "billing_period_start_date"
+    t.date "billing_period_end_date"
+    t.integer "amount", default: 0, null: false
+    t.date "due_date"
+    t.string "status", default: "pending", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_statements_on_status"
+    t.index ["user_id"], name: "index_statements_on_user_id"
+  end
+
   create_table "transactions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "card_id", null: false
     t.string "merchant_name"
@@ -68,5 +90,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_10_074043) do
   end
 
   add_foreign_key "card_applications", "users"
+  add_foreign_key "payments", "statements"
+  add_foreign_key "statements", "users"
   add_foreign_key "transactions", "cards"
 end

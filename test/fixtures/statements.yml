@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  billing_period_start_date: 2025-07-14
+  billing_period_end_date: 2025-07-14
+  amount: 1
+  due_date: 2025-07-14
+  status: MyString
+
+two:
+  user: two
+  billing_period_start_date: 2025-07-14
+  billing_period_end_date: 2025-07-14
+  amount: 1
+  due_date: 2025-07-14
+  status: MyString
