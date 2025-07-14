@@ -15,6 +15,10 @@ class StatementsController < ApplicationController
   # GET /statements/:id
   # 特定の利用明細を詳細表示します。
   def show
-    @statement = current_user.statements.find_by!(id: params[:id])
+    @statement = current_user.statements.find_by(id: params[:id])
+
+    if @statement.nil?
+      redirect_to root_url, alert: "アクセス権がありません。"
+    end
   end
 end
