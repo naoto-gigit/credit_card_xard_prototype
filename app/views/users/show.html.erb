@@ -26,6 +26,8 @@
   <p><strong>年収:</strong> <%= @latest_card_application.annual_income %>万円</p>
   <p><strong>他社借入額:</strong> <%= @latest_card_application.other_debt %>万円</p>
 
+  <%= link_to "取引履歴", transactions_path, class: "btn btn-info" %>
+  <%= link_to "利用明細一覧", statements_path, class: "btn btn-primary" %>
 <% else %>
   <p>カード申請はまだありません。</p>
   <%= link_to "カード申請を行う", new_card_application_path %>

@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h1 class="h4 mb-0">利用明細</h1>
+      <span class="badge <%= status_badge_class(@statement.status) %> fs-6">
+        <%= t("statement.status.#{@statement.status}") %>
+      </span>
+    </div>
+    <div class="card-body">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <p><strong>請求期間:</strong> <%= @statement.billing_period_start_date.strftime("%Y年%m月%d日") %> ~ <%= @statement.billing_period_end_date.strftime("%Y年%m月%d日") %></p>
+          <p><strong>支払期日:</strong> <%= @statement.due_date.strftime("%Y年%m月%d日") %></p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p class="h4"><small>ご請求額</small><br><strong><%= number_to_currency(@statement.amount, unit: "円", precision: 0) %></strong></p>
+        </div>
+      </div>
+
+      <h2 class="h5 mt-4 mb-3">ご利用内訳</h2>
+      <% transactions = @statement.user.transactions.where(transacted_at: @statement.billing_period_start_date..@statement.billing_period_end_date) %>
+      <% if transactions.any? %>
+        <div class="table-responsive">
+          <table class="table table-sm table-striped">
+            <thead>
+              <tr>
+                <th>ご利用日</th>
+                <th>ご利用先</th>
+                <th class="text-end">ご利用金額</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% transactions.each do |transaction| %>
+                <tr>
+                  <td><%= transaction.transacted_at.strftime("%Y年%m月%d日") %></td>
+                  <td><%= transaction.merchant_name %></td>
+                  <td class="text-end"><%= number_to_currency(transaction.amount, unit: "円", precision: 0) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p>この期間の取引はありません。</p>
+      <% end %>
+    </div>
+    <div class="card-footer text-muted">
+      <%= link_to "一覧に戻る", statements_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,11 @@ ja:
         full_name: 氏名
         date_of_birth: 生年月日
         address: 住所
+  statement:
+    status:
+      pending: 支払い待ち
+      paid: 支払い済み
+      overdue: 延滞
   time:
     formats:
       long: "%Y年%m月%d日 %H時%M分"

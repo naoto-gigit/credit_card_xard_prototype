@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resources :card_applications, only: %i[new create]
   # 取引履歴表示用のルートを定義します。
   resources :transactions, only: [ :index ]
+  # 利用明細表示用のルートを定義します。
+  resources :statements, only: %i[index show]
   # ユーザープロフィールページ用のルートを定義します。
   get "/profile", to: "users#show", as: :profile
   # ホームページ用のルートを定義します。
