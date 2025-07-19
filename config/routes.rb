@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   # API用のルートを定義します。
   namespace :api do
     namespace :v1 do
+      # eKYC検証リクエスト受信用ルートを定義します。
+      post "ekyc_verifications", to: "ekyc_verifications#create"
       # カード発行用のルートを定義します。
       post "cards/issue", to: "cards#issue"
     end

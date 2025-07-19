@@ -13,22 +13,23 @@ class EkycProcessingJob < ApplicationJob
   # ジョブのメイン処理
   #
   # @param ekyc_application_id [Integer] eKYC申し込みのID
-  def perform(ekyc_application_id)
-    # カード申し込みを取得します。
-    card_application = CardApplication.find_by(id: ekyc_application_id)
+  def perform(card_application_id)
+    card_application = CardApplication.find_by(id: card_application_id)
     return unless card_application
 
-    Rails.logger.info "eKYC Processing Job for Application ID: #{card_application.id} started."
+    Rails.logger.info "eKYC Processing Job: Requesting verification for Application ID: #{card_application.id}"
 
-    # 10秒待機して、eKYC処理をシミュレートします。
-    sleep 10
+    # 外部のeKYCサービスAPI（モック）を呼び出す
+    uri = URI.parse("http://localhost:3000/api/v1/ekyc_verifications")
+    http = Net::HTTP.new(uri.host, uri.port)
+    request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
+    request.body = { card_application_id: card_application.id }.to_json
 
-    Rails.logger.info "eKYC Processing Job for Application ID: #{card_application.id} completed. Triggering CreditScoringJob."
+    response = http.request(request)
 
-    # eKYC処理が完了したら、次のステップとしてCreditScoringJobをキューに投入します。
-    CreditScoringJob.perform_later(card_application.id)
+    # レスポンスをログに出力
+    Rails.logger.info "eKYC API Response: #{response.code} #{response.message}"
   rescue StandardError => e
-    # ジョブの実行中にエラーが発生した場合は、エラーをログに記録します。
-    Rails.logger.error "Error in EkycProcessingJob for Application ID: #{ekyc_application_id}: #{e.message}"
+    Rails.logger.error "Error in EkycProcessingJob for Application ID: #{card_application_id}: #{e.message}"
   end
 end
