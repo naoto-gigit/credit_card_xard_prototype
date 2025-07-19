@@ -1,0 +1,25 @@
+【重要】お支払いのお願い
+
+<%= @user.email %> 様
+
+いつもご利用いただきありがとうございます。
+
+お客様のクレジットカードのご利用代金につきまして、お支払いが確認できていない請求がございます。
+
+お手数ですが、以下のリンクより詳細をご確認の上、至急お支払いいただけますようお願い申し上げます。
+
+---
+お支払い情報
+
+請求期間: <%= @statement.billing_period_start_date.strftime("%Y年%m月%d日") %> ~ <%= @statement.billing_period_end_date.strftime("%Y年%m月%d日") %>
+お支払期日: <%= @statement.due_date.strftime("%Y年%m月%d日") %>
+ご請求額: <%= number_to_currency(@statement.amount, unit: "円", precision: 0) %>
+---
+
+利用明細を確認する: <%= statement_url(@statement) %>
+
+※本メールと行き違いでお支払い済みの場合は、何卒ご容赦ください。
+
+
+---
+クレジットカード Xard

@@ -11,9 +11,8 @@ namespace :delinquency do
       statement.update!(status: "overdue")
       puts "Statement #{statement.id} is now overdue."
 
-      # ここに督促メールの送信などの処理を追加できる
-      # 例えば:
-      # DelinquencyMailer.with(statement: statement).first_reminder.deliver_later
+      # 督促メールを送信します。
+      DelinquencyMailer.overdue_reminder(statement).deliver_later
     end
 
     puts "Finished checking for overdue statements."

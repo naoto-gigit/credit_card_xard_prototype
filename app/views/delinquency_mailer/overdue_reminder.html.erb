@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+      /* スタイルをここに記述 */
+    </style>
+  </head>
+  <body>
+    <h1>【重要】お支払いのお願い</h1>
+    <p><%= @user.email %> 様</p>
+    <p>いつもご利用いただきありがとうございます。</p>
+    <p>お客様のクレジットカードのご利用代金につきまして、お支払いが確認できていない請求がございます。</p>
+    <p>お手数ですが、以下のリンクより詳細をご確認の上、至急お支払いいただけますようお願い申し上げます。</p>
+    <hr>
+    <h3>お支払い情報</h3>
+    <ul>
+      <li><strong>請求期間:</strong> <%= @statement.billing_period_start_date.strftime("%Y年%m月%d日") %> ~ <%= @statement.billing_period_end_date.strftime("%Y年%m月%d日") %></li>
+      <li><strong>お支払期日:</strong> <%= @statement.due_date.strftime("%Y年%m月%d日") %></li>
+      <li><strong>ご請求額:</strong> <%= number_to_currency(@statement.amount, unit: "円", precision: 0) %></li>
+    </ul>
+    <hr>
+    <p>
+      <%= link_to "利用明細を確認する", statement_url(@statement) %>
+    </p>
+    <p>※本メールと行き違いでお支払い済みの場合は、何卒ご容赦ください。</p>
+    <br>
+    <p>---</p>
+    <p>クレジットカード Xard</p>
+  </body>
+</html>

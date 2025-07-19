@@ -7,3 +7,18 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+# --- 動作確認用の延滞データを作成 ---
+user = User.first
+if user
+  puts "Creating overdue statement for user: #{user.email}"
+  Statement.find_or_create_by!(user: user, due_date: Date.current.yesterday) do |s|
+    s.billing_period_start_date = Date.current.prev_month.beginning_of_month
+    s.billing_period_end_date = Date.current.prev_month.end_of_month
+    s.amount = 15000
+    s.status = "pending"
+  end
+  puts "Overdue statement created."
+else
+  puts "No users found. Skipping seed data creation."
+end

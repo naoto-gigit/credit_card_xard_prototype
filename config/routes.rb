@@ -6,6 +6,11 @@
 # ルーティングの詳細については、Railsガイドを参照してください:
 # https://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
+  # letter_opener_web用のルーティング (開発環境のみ)
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
   # == 認証が必要なルート ==
   # カード申し込み用のルートを定義します。
   resources :card_applications, only: %i[new create]
