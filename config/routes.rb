@@ -37,6 +37,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       # eKYC検証リクエスト受信用ルートを定義します。
       post "ekyc_verifications", to: "ekyc_verifications#create"
+      # 与信スコアリングリクエスト受信用ルートを定義します。
+      post "credit_scorings", to: "credit_scorings#create"
       # カード発行用のルートを定義します。
       post "cards/issue", to: "cards#issue"
     end
