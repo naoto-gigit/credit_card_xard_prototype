@@ -2,7 +2,7 @@
 
 one:
   user: one
-  xard_card_id: MyString
+  xard_card_id: test_card_001
   last_4_digits: MyString
   card_type: MyString
   status: MyString

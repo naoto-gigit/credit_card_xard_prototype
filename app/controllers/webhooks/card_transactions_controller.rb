@@ -12,17 +12,19 @@ module Webhooks
     #
     # Webhookを受け取り、新しいTransactionレコードを作成します。
     def create
-      Transaction.create!(transaction_params)
-      head :ok
-    end
+      card = Card.find_by(xard_card_id: params[:card_xard_id])
 
-    private
-
-    # Strong Parameters
-    #
-    # マスアサインメント脆弱性を防ぐため、許可されたパラメータのみを受け取ります。
-    def transaction_params
-      params.require(:transaction).permit(:card_id, :merchant_name, :amount, :transacted_at)
+      if card
+        Transaction.create!(
+          card: card,
+          merchant_name: params[:merchant_name],
+          amount: params[:amount],
+          transacted_at: params[:transacted_at]
+        )
+        head :ok
+      else
+        head :not_found
+      end
     end
   end
 end
