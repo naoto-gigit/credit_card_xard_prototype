@@ -1,26 +1,39 @@
+# frozen_string_literal: true
+
 module Api
   module V1
+    # CardsController
+    #
+    # 外部のカード発行システム（Xard）のAPIモックです。
+    # カード発行リクエストを受け取り、擬似的なカード情報を返します。
     class CardsController < ApplicationController
-      # CSRFトークンの検証をスキップ（APIのため）
+      # 外部からのAPIリクエストを受け付けるため、CSRF保護を無効にします。
       skip_before_action :verify_authenticity_token
 
-      # カード発行APIのモック
+      # POST /api/v1/cards/issue
       def issue
-        # リクエストボディから必要なパラメータを取得（今回はモックなので使わないが、実際のAPIでは必要）
-        # params[:user_id], params[:card_type] など
+        # リクエストからユーザーIDと限度額を取得
+        user_id = params[:user_id]
+        credit_limit = params[:credit_limit]
 
-        # モックのレスポンスデータを生成
-        # 実際のXard APIのレスポンスを模倣する
-        response_data = {
-          card_id: "mock_card_#{SecureRandom.hex(8)}", # ユニークなIDをシミュレート
-          status: "issued",
-          last_4_digits: "1234",
-          card_type: "JCB",
-          issued_at: Time.current.iso8601 # ISO 8601形式で日時を返す
-        }
+        # パラメータが不足している場合はエラーを返す
+        if user_id.blank? || credit_limit.blank?
+          return render json: { error: "user_id and credit_limit are required" }, status: :bad_request
+        end
 
-        # JSON形式でレスポンスを返す
-        render json: response_data, status: :ok
+        # 擬似的なカード情報を生成
+        xard_card_id = "crd_#{SecureRandom.hex(10)}"
+        last_4_digits = rand(1000..9999).to_s
+        card_type = [ "Visa", "Mastercard", "JCB" ].sample
+
+        # 成功レスポンスを返す
+        render json: {
+          xard_card_id: xard_card_id,
+          last_4_digits: last_4_digits,
+          card_type: card_type,
+          status: "active",
+          issued_at: Time.current
+        }, status: :created
       end
     end
   end
