@@ -36,8 +36,15 @@ module Webhooks
 
         # カード申し込み情報を更新します。
         if card_application.update(credit_decision: credit_decision, credit_limit: credit_limit)
-          # 承認された場合は、カード発行ジョブを起動します。
-          CardIssuanceJob.perform_later(card_application) if credit_decision == "承認"
+          if credit_decision == "承認"
+            # 承認された場合は、カード発行ジョブを起動し、承認メールを送信します。
+            CardIssuanceJob.perform_later(card_application)
+            ApplicationMailer.send_approval_email(card_application).deliver_later
+          else
+            # 否決された場合は、否決メールを送信します。
+            ApplicationMailer.send_rejection_email(card_application).deliver_later
+          end
+
           Rails.logger.info "Application results webhook processed for Card Application ID: #{card_application.id}. Decision: #{credit_decision}, Limit: #{credit_limit}"
           head :ok
         else
