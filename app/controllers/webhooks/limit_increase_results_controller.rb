@@ -17,8 +17,8 @@ module Webhooks
         return render json: { error: "LimitIncreaseApplication not found" }, status: :not_found
       end
 
-      # 申請ステータスを更新
-      application.update(status: status)
+      # 申請ステータスと承認額を更新
+      application.update(status: status, approved_limit: approved_limit)
 
       if status == "approved"
         # 承認された場合は、カードの一時限度額を更新
@@ -27,9 +27,10 @@ module Webhooks
           temporary_limit: approved_limit,
           temporary_limit_expires_at: application.end_date.end_of_day
         )
-        # TODO: 承認メールを送信
+        LimitIncreaseMailer.send_approval_email(application).deliver_later
       else
-        # TODO: 否決メールを送信
+        # 否決された場合は否決メールを送信
+        LimitIncreaseMailer.send_rejection_email(application).deliver_later
       end
 
       head :ok

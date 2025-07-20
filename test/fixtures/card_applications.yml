@@ -2,6 +2,7 @@
 
 one:
   applicant: one (User)
+  user: one
   status: "審査中"
   document_type: "運転免許証"
   document_number: "123456789012"
@@ -16,6 +17,7 @@ one:
 
 two:
   applicant: two (User)
+  user: two
   status: "承認"
   document_type: "マイナンバーカード"
   document_number: "987654321098"

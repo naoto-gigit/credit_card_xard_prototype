@@ -20,4 +20,19 @@ class CardTest < ActiveSupport::TestCase
     card = Card.new(xard_card_id: "test_id", last_4_digits: "1234")
     assert_not card.valid?
   end
+
+  test "#current_credit_limit returns temporary_limit when active" do
+    @user.cards.update(credit_limit: 50, temporary_limit: 100, temporary_limit_expires_at: 1.day.from_now)
+    assert_equal 100, @user.cards.first.current_credit_limit
+  end
+
+  test "#current_credit_limit returns credit_limit when temporary_limit is expired" do
+    @user.cards.update(credit_limit: 50, temporary_limit: 100, temporary_limit_expires_at: 1.day.ago)
+    assert_equal 50, @user.cards.first.current_credit_limit
+  end
+
+  test "#current_credit_limit returns credit_limit when temporary_limit is nil" do
+    @user.cards.update(credit_limit: 50, temporary_limit: nil, temporary_limit_expires_at: nil)
+    assert_equal 50, @user.cards.first.current_credit_limit
+  end
 end

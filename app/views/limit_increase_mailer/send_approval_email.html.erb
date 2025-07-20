@@ -1,0 +1,16 @@
+<p><%= @user.email %>様</p>
+
+<p>この度は、ご利用可能枠の一時的な増額をお申し込みいただき、誠にありがとうございます。</p>
+
+<p>審査の結果、以下の通りご利用可能枠の増額が承認されましたことをお知らせいたします。</p>
+
+<p>
+  <strong>対象カード:</strong> <%= @card.card_type %> (下4桁: <%= @card.last_4_digits %>)<br>
+  <strong>増額後のご利用可能枠:</strong> <%= number_to_currency(@application.approved_limit, unit: "万円", precision: 0) %><br>
+  <strong>増額期間:</strong> <%= l @application.start_date %> ～ <%= l @application.end_date %>
+</p>
+
+<p>期間終了後は、通常のご利用可能枠に戻ります。</p>
+
+<hr>
+<p>Xard株式会社</p>

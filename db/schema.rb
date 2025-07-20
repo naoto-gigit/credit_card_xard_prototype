@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_20_093302) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_20_105902) do
   create_table "card_applications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "status"
     t.string "document_type"
@@ -47,6 +47,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_093302) do
     t.bigint "owner_id", null: false
     t.integer "temporary_limit"
     t.datetime "temporary_limit_expires_at"
+    t.integer "credit_limit"
     t.index ["owner_type", "owner_id"], name: "index_cards_on_owner"
   end
 
@@ -74,6 +75,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_093302) do
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "approved_limit"
     t.index ["card_id"], name: "index_limit_increase_applications_on_card_id"
     t.index ["user_id"], name: "index_limit_increase_applications_on_user_id"
   end
