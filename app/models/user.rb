@@ -28,4 +28,6 @@ class User < ApplicationRecord
   has_many :statements
   # ユーザーはカードを通じて複数の取引を持つことができます。
   has_many :transactions, through: :cards
+  # ユーザーは複数の増額申請を持つことができます。
+  has_many :limit_increase_applications
 end

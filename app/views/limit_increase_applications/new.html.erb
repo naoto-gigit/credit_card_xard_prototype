@@ -1,0 +1,42 @@
+<h1>利用限度額の一時増額申請</h1>
+
+<p><strong>対象カード:</strong> <%= @card.card_type %> (下4桁: <%= @card.last_4_digits %>)</p>
+<p><strong>現在の限度額:</strong> <%= number_to_currency(@card.credit_limit, unit: "万円", precision: 0) %></p>
+<hr>
+
+<%= form_with(model: [@card, @limit_increase_application], local: true) do |form| %>
+  <% if @limit_increase_application.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@limit_increase_application.errors.count, "error") %> prohibited this application from being saved:</h2>
+      <ul>
+        <% @limit_increase_application.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :desired_limit, "希望ご利用可能枠（万円）" %>
+    <%= form.number_field :desired_limit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :start_date, "増額希望期間（開始日）" %>
+    <%= form.date_field :start_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :end_date, "増額希望期間（終了日）" %>
+    <%= form.date_field :end_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :reason, "ご利用目的" %>
+    <%= form.select :reason, ["海外旅行", "結婚式", "高額な買い物", "その他"], prompt: "選択してください" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "申請する" %>
+  </div>
+<% end %>

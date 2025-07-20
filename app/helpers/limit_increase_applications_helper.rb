@@ -1,0 +1,2 @@
+module LimitIncreaseApplicationsHelper
+end

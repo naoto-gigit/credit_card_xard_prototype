@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_20_055755) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_20_093302) do
   create_table "card_applications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "status"
     t.string "document_type"
@@ -45,6 +45,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_055755) do
     t.datetime "updated_at", null: false
     t.string "owner_type", null: false
     t.bigint "owner_id", null: false
+    t.integer "temporary_limit"
+    t.datetime "temporary_limit_expires_at"
     t.index ["owner_type", "owner_id"], name: "index_cards_on_owner"
   end
 
@@ -60,6 +62,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_055755) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["registration_number"], name: "index_corporations_on_registration_number", unique: true
+  end
+
+  create_table "limit_increase_applications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "card_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "desired_limit"
+    t.date "start_date"
+    t.date "end_date"
+    t.string "reason"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_limit_increase_applications_on_card_id"
+    t.index ["user_id"], name: "index_limit_increase_applications_on_user_id"
   end
 
   create_table "payments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -112,6 +128,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_055755) do
   end
 
   add_foreign_key "card_applications", "users"
+  add_foreign_key "limit_increase_applications", "cards"
+  add_foreign_key "limit_increase_applications", "users"
   add_foreign_key "payments", "statements"
   add_foreign_key "statements", "users"
   add_foreign_key "transactions", "cards"

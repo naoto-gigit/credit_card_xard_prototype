@@ -32,6 +32,20 @@
   <%= link_to "カード申請を行う", new_card_application_path %>
 <% end %>
 
+<h2>保有カード情報</h2>
+<% if @user.cards.any? %>
+  <ul>
+    <% @user.cards.each do |card| %>
+      <li>
+        <%= card.card_type %> (下4桁: <%= card.last_4_digits %>) -
+        <%= link_to "一時増額申請", new_card_limit_increase_application_path(card) %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>保有しているカードはありません。</p>
+<% end %>
+
 <hr>
 
 <h2>法人情報</h2>

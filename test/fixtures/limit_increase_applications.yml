@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  card: one
+  user: one
+  desired_limit: 1
+  start_date: 2025-07-20
+  end_date: 2025-07-20
+  reason: MyString
+  status: MyString
+
+two:
+  card: two
+  user: two
+  desired_limit: 1
+  start_date: 2025-07-20
+  end_date: 2025-07-20
+  reason: MyString
+  status: MyString
