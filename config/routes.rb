@@ -13,8 +13,11 @@ Rails.application.routes.draw do
 
   # == 認証が必要なルート ==
   # 法人登録用のルートを定義します。
-  resources :corporations, only: %i[new create]
-  # カード申し込み用のルートを定義します。
+  resources :corporations, only: %i[new create] do
+    # 法人カード申し込み用のルート（ネスト）
+    resources :card_applications, only: %i[new create], controller: "corporate_card_applications"
+  end
+  # 個人カード申し込み用のルートを定義します。
   resources :card_applications, only: %i[new create]
   # 取引履歴表示用のルートを定義します。
   resources :transactions, only: [ :index ]
@@ -39,6 +42,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       # eKYC検証リクエスト受信用ルートを定義します。
       post "ekyc_verifications", to: "ekyc_verifications#create"
+      # KYB検証リクエスト受信用ルートを定義します。
+      post "kyb_verifications", to: "kyb_verifications#create"
       # 与信スコアリングリクエスト受信用ルートを定義します。
       post "credit_scorings", to: "credit_scorings#create"
       # カード発行用のルートを定義します。
@@ -51,6 +56,8 @@ Rails.application.routes.draw do
   namespace :webhooks do
     # eKYCステータス更新受信用ルートを定義します。
     post "ekyc_statuses", to: "ekyc_statuses#create"
+    # KYBステータス更新受信用ルートを定義します。
+    post "kyb_statuses", to: "kyb_statuses#create"
     # クレジットスコア更新受信用ルートを定義します。
     post "credit_scores", to: "credit_scores#create"
     # カード取引更新受信用ルートを定義します。

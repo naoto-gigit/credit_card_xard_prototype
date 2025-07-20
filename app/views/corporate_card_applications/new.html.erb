@@ -1,0 +1,76 @@
+<h1>法人カード発行 審査申請</h1>
+<p><strong>申込法人:</strong> <%= @corporation.name %></p>
+<hr>
+
+<%# フォーム自体は個人用と同じものを一旦流用する %>
+<%= form_with(model: @card_application, url: corporation_card_applications_path(@corporation), local: true) do |form| %>
+  <% if @card_application.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@card_application.errors.count, "error") %> prohibited this card_application from being saved:</h2>
+      <ul>
+        <% @card_application.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>※以下の情報は、本申し込みの担当者（あなた）の情報をご入力ください。</p>
+
+  <div class="field">
+    <%= form.label :document_type %><br />
+    <%= form.select :document_type, ['運転免許証', 'マイナンバーカード', 'パスポート'], prompt: '選択してください' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :document_number %><br />
+    <%= form.text_field :document_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :full_name, "担当者氏名" %><br />
+    <%= form.text_field :full_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date_of_birth, "担当者生年月日" %><br />
+    <%= form.date_field :date_of_birth %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address, "担当者住所" %><br />
+    <%= form.text_area :address %>
+  </div>
+
+  <hr>
+  <h3>担当者様の属性情報</h3>
+
+  <div class="field">
+    <%= form.label :company_name, "勤務��名（所属法人名）" %><br />
+    <%= form.text_field :company_name, value: @corporation.name, readonly: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :employment_type, "雇用形態" %><br />
+    <%= form.select :employment_type, ['正社員', '契約社員', '派遣社員', 'パート・アルバイト', 'その他'], prompt: '選択してください' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :years_of_service, "勤続年数" %><br />
+    <%= form.number_field :years_of_service %>
+  </div>
+
+  <div class="field">
+    <%= form.label :annual_income, "年収（万円）" %><br />
+    <%= form.number_field :annual_income %>
+  </div>
+
+  <div class="field">
+    <%= form.label :other_debt, "他社借入額（万円）" %><br />
+    <%= form.number_field :other_debt %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "申請する" %>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+module CorporateCardApplicationsHelper
+end
