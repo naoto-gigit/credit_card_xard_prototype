@@ -13,8 +13,8 @@ class TransactionTest < ActiveSupport::TestCase
     assert_instance_of Card, @transaction.card
   end
 
-  test "should belong to a user through card" do
-    assert_respond_to @transaction, :user
-    assert_instance_of User, @transaction.user
+  test "should belong to an owner through card" do
+    assert_respond_to @transaction, :owner
+    assert_instance_of User, @transaction.owner
   end
 end

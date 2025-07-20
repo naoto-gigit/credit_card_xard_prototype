@@ -1,17 +1,18 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user: one
-  xard_card_id: test_card_001
-  last_4_digits: MyString
-  card_type: MyString
-  status: MyString
-  issued_at: 2025-07-05 12:58:21
+  owner: one (User)
+  xard_card_id: "card_001"
+  last_4_digits: "1234"
+  card_type: "Visa"
+  status: "active"
+  issued_at: <%= Time.current %>
 
 two:
-  user: one
-  xard_card_id: MyString
-  last_4_digits: MyString
-  card_type: MyString
-  status: MyString
-  issued_at: 2025-07-05 12:58:21
+  owner: two (User)
+  xard_card_id: "card_002"
+  last_4_digits: "5678"
+  card_type: "Mastercard"
+  status: "active"
+  issued_at: <%= Time.current %>
+

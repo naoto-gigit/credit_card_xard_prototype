@@ -8,6 +8,6 @@
 class Transaction < ApplicationRecord
   # 取引は一枚のカードに属します。
   belongs_to :card
-  # カードを経由して、取引の所有者であるユーザーを取得します。
-  has_one :user, through: :card
+  # 取引はカードを通じて一人の所有者（個人または法人）に属します。
+  delegate :owner, to: :card
 end
