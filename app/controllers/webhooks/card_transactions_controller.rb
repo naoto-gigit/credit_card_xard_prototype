@@ -15,6 +15,12 @@ module Webhooks
       card = Card.find_by(xard_card_id: params[:card_xard_id])
 
       if card
+        # カードが有効（active）でない場合は、取引を拒否する
+        unless card.active?
+          head :unprocessable_entity
+          return
+        end
+
         Transaction.create!(
           card: card,
           merchant_name: params[:merchant_name],
