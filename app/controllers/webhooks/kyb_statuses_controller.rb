@@ -22,8 +22,7 @@ module Webhooks
 
       if status == "approved"
         # 承認された場合は、法人向けの与信審査ジョブを起動
-        # TODO: CorporateCreditScoringJobを新規に作成し、呼び出す
-        # CorporateCreditScoringJob.perform_later(card_application.id)
+        CorporateCreditScoringJob.perform_later(card_application.id)
         Rails.logger.info "KYB approved for Application ID: #{card_application.id}. Triggering corporate credit scoring."
       else
         # 否決された場合は、否決メールを送信

@@ -46,6 +46,8 @@ Rails.application.routes.draw do
       post "kyb_verifications", to: "kyb_verifications#create"
       # 与信スコアリングリクエスト受信用ルートを定義します。
       post "credit_scorings", to: "credit_scorings#create"
+      # 法人向け与信スコアリングリクエスト受信用ルートを定義します。
+      post "corporate_credit_scorings", to: "corporate_credit_scorings#create"
       # カード発行用のルートを定義します。
       post "cards/issue", to: "cards#issue"
     end
@@ -60,6 +62,8 @@ Rails.application.routes.draw do
     post "kyb_statuses", to: "kyb_statuses#create"
     # クレジットスコア更新受信用ルートを定義します。
     post "credit_scores", to: "credit_scores#create"
+    # 法人向けクレジットスコア更新受信用ルートを定義します。
+    post "corporate_credit_scores", to: "corporate_credit_scores#create"
     # カード取引更新受信用ルートを定義します。
     post "card_transactions", to: "card_transactions#create"
   end
