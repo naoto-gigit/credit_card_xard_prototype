@@ -38,6 +38,8 @@
 <% if @user.corporation.present? %>
   <p><strong>法人名:</strong> <%= @user.corporation.name %></p>
   <%# 他の法人情報も必要に応じて表示 %>
+  <br>
+  <%= link_to "法人カードを申し込む", new_card_application_path(applicant_type: 'Corporation'), class: "btn btn-primary" %>
 <% else %>
   <p>法人情報はまだ登録されていません。</p>
   <%= link_to "法人情報を登録する", new_corporation_path, class: "btn btn-success" %>

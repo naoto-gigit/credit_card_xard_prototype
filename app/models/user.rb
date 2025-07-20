@@ -16,8 +16,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  # ユーザーは複数のクレジットカードを持つことができます。
-  has_many :cards
+  # ユーザーは所有者として複数のクレジットカードを持つことができます。
+  has_many :cards, as: :owner
   # ユーザーは複数のカード申し込みを持つことができます。
   has_many :card_applications, as: :applicant
   # ユーザーは法人に所属することができます。

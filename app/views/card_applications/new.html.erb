@@ -2,12 +2,13 @@
 <h1>クレジットカード発行審査申請</h1>
 
 <%= form_with(model: @card_application, url: card_applications_path, local: true) do |form| %>
+  <%= form.hidden_field :applicant_type, value: @applicant_type %>
   <% if @card_application.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@card_application.errors.count, "error") %> prohibited this card_application from being saved:</h2>
 
       <ul>
-        <% @ekyc_application.errors.full_messages.each do |message| %>
+        <% @card_application.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>

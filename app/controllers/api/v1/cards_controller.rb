@@ -12,13 +12,14 @@ module Api
 
       # POST /api/v1/cards/issue
       def issue
-        # リクエストからユーザーIDと限度額を取得
-        user_id = params[:user_id]
+        # リクエストから所有者情報と限度額を取得
+        owner_id = params[:owner_id]
+        owner_type = params[:owner_type]
         credit_limit = params[:credit_limit]
 
         # パラメータが不足している場合はエラーを返す
-        if user_id.blank? || credit_limit.blank?
-          return render json: { error: "user_id and credit_limit are required" }, status: :bad_request
+        if owner_id.blank? || owner_type.blank? || credit_limit.blank?
+          return render json: { error: "owner_id, owner_type, and credit_limit are required" }, status: :bad_request
         end
 
         # 擬似的なカード情報を生成

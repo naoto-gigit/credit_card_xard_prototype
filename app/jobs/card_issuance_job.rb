@@ -8,7 +8,8 @@ class CardIssuanceJob < ApplicationJob
   queue_as :default
 
   def perform(card_application)
-    Rails.logger.info "CardIssuanceJob: Started for Card Application ID: #{card_application.id}"
+    Rails.logger.info "--- CardIssuanceJob: Started for Card Application ID: #{card_application.id} ---"
+    Rails.logger.info "Applicant type: #{card_application.applicant.class.name}"
 
     # APIエンドポイントのURLを構築
     # Rails.application.routes.url_helpers を使ってルーティングからURLを生成
@@ -19,12 +20,18 @@ class CardIssuanceJob < ApplicationJob
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
     request.body = {
-      user_id: card_application.applicant_id,
+      owner_id: card_application.applicant_id,
+      owner_type: card_application.applicant_type,
       credit_limit: card_application.credit_limit
     }.to_json
 
+    Rails.logger.info "Request body to API: #{request.body}"
+
     # リクエストを送信し、レスポンスを受け取る
     response = http.request(request)
+
+    Rails.logger.info "Response from API: #{response.code} #{response.message}"
+    Rails.logger.info "Response body from API: #{response.body}"
 
     # レスポンスが成功した場合
     if response.is_a?(Net::HTTPSuccess)
@@ -33,7 +40,7 @@ class CardIssuanceJob < ApplicationJob
 
       # 受け取ったデータでCardレコードを作成
       Card.create!(
-        user: card_application.applicant,
+        owner: card_application.applicant,
         xard_card_id: card_data["xard_card_id"],
         last_4_digits: card_data["last_4_digits"],
         card_type: card_data["card_type"],

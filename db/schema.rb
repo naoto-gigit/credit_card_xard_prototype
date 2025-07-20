@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_19_171634) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_20_033905) do
   create_table "card_applications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "status"
     t.string "document_type"
@@ -35,13 +35,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_19_171634) do
 
   create_table "cards", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "xard_card_id"
-    t.integer "user_id"
     t.string "last_4_digits"
     t.string "card_type"
     t.string "status"
     t.datetime "issued_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "owner_type", null: false
+    t.bigint "owner_id", null: false
+    t.index ["owner_type", "owner_id"], name: "index_cards_on_owner"
   end
 
   create_table "corporations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
