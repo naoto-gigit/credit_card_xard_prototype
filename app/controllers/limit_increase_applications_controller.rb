@@ -19,7 +19,7 @@ class LimitIncreaseApplicationsController < ApplicationController
     @limit_increase_application.status = "pending"
 
     if @limit_increase_application.save
-      # TODO: LimitIncreaseScoringJobを呼び出す
+      LimitIncreaseScoringJob.perform_later(@limit_increase_application.id)
       redirect_to profile_path, notice: "限度額の一時増額を申請しました。審査結果をお待ちください。"
     else
       render :new, status: :unprocessable_entity

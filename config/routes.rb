@@ -53,6 +53,8 @@ Rails.application.routes.draw do
       post "credit_scorings", to: "credit_scorings#create"
       # 法人向け与信スコアリングリクエスト受信用ルートを定義します。
       post "corporate_credit_scorings", to: "corporate_credit_scorings#create"
+      # 増額申請審査リクエスト受信用ルートを定義します。
+      post "limit_increase_scorings", to: "limit_increase_scorings#create"
       # カード発行用のルートを定義します。
       post "cards/issue", to: "cards#issue"
     end
@@ -69,6 +71,8 @@ Rails.application.routes.draw do
     post "credit_scores", to: "credit_scores#create"
     # 法人向けクレジットスコア更新受信用ルートを定義します。
     post "corporate_credit_scores", to: "corporate_credit_scores#create"
+    # 増額申請結果更新受信用ルートを定義します。
+    post "limit_increase_results", to: "limit_increase_results#create"
     # カード取引更新受信用ルートを定義します。
     post "card_transactions", to: "card_transactions#create"
   end
