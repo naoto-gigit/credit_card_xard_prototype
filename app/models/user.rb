@@ -18,8 +18,10 @@ class User < ApplicationRecord
 
   # ユーザーは所有者として複数のクレジットカードを持つことができます。
   has_many :cards, as: :owner
-  # ユーザーは複数のカード申し込みを持つことができます。
+  # ユーザーは申込者として複数のカード申し込みを持つことができます。
   has_many :card_applications, as: :applicant
+  # ユーザーは担当者として複数のカード申し込みを持つことができます。
+  has_many :handled_card_applications, class_name: "CardApplication", foreign_key: "user_id"
   # ユーザーは法人に所属することができます。
   belongs_to :corporation, optional: true
   # ユーザーは複数の利用明細を持つことができます。

@@ -15,6 +15,7 @@ class CorporateCardApplicationsController < ApplicationController
   # POST /corporations/:corporation_id/card_applications
   def create
     @card_application = @corporation.card_applications.build(corporate_card_application_params)
+    @card_application.user = current_user # 担当者を設定
     @card_application.status = "application_started" # 初期ステータスを設定
 
     if @card_application.save

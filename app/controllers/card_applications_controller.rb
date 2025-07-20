@@ -17,6 +17,7 @@ class CardApplicationsController < ApplicationController
   # 新しいカード申し込みを作成します。
   def create
     @card_application = current_user.card_applications.build(card_application_params)
+    @card_application.user = current_user # 担当者を設定
     @card_application.status = "application_started" # 初期ステータスを設定
 
     if @card_application.save

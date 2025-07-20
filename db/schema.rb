@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_20_033905) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_20_055755) do
   create_table "card_applications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "status"
     t.string "document_type"
@@ -30,7 +30,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_033905) do
     t.integer "credit_score"
     t.string "applicant_type"
     t.bigint "applicant_id"
+    t.bigint "user_id", null: false
     t.index ["applicant_type", "applicant_id"], name: "index_card_applications_on_applicant"
+    t.index ["user_id"], name: "index_card_applications_on_user_id"
   end
 
   create_table "cards", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -109,6 +111,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_033905) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "card_applications", "users"
   add_foreign_key "payments", "statements"
   add_foreign_key "statements", "users"
   add_foreign_key "transactions", "cards"

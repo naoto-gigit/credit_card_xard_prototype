@@ -6,6 +6,8 @@
 class CardApplication < ApplicationRecord
   # 申し込みは個人(User)または法人(Corporation)に属します。
   belongs_to :applicant, polymorphic: true
+  # 申し込み手続きを行った担当者（User）に属します。
+  belongs_to :user
 
   # credit_decisionが変更された後にメールを送信する
   after_update :send_decision_email, if: :saved_change_to_credit_decision?
