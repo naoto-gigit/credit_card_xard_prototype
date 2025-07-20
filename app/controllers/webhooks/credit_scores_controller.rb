@@ -35,7 +35,7 @@ module Webhooks
         credit_limit: limit,
         status: "scoring_completed"
       )
-        # ��認された場合はカード発行ジョブを起動
+        # 承認された場合はカード発行ジョブを起動
         if decision == "approved"
           CardIssuanceJob.perform_later(card_application)
         end
