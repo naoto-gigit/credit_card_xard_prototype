@@ -51,8 +51,6 @@ Rails.application.routes.draw do
     post "ekyc_statuses", to: "ekyc_statuses#create"
     # クレジットスコア更新受信用ルートを定義します。
     post "credit_scores", to: "credit_scores#create"
-    # 申し込み結果更新受信用ルートを定義します。
-    post "application_results", to: "application_results#create"
     # カード取引更新受信用ルートを定義します。
     post "card_transactions", to: "card_transactions#create"
   end

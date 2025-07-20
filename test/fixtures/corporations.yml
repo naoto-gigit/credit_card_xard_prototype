@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 株式会社テスト
+  name_kana: カブシキガイシャテスト
+  registration_number: "1234567890123"
+  corporate_type: "株式会社"
+  establishment_date: 2020-01-01
+  address: "東京都千代田区"
+  phone_number: "03-1234-5678"
+  website: "https://example.com"
+
+two:
+  name: 合同会社サンプル
+  name_kana: ゴウドウガイシャサンプル
+  registration_number: "9876543210987"
+  corporate_type: "合同会社"
+  establishment_date: 2022-02-02
+  address: "大阪府大阪市"
+  phone_number: "06-9876-5432"
+  website: "https://sample.net"

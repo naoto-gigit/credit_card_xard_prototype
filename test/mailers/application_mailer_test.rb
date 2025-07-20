@@ -15,7 +15,7 @@ class ApplicationMailerTest < ActionMailer::TestCase
     end
 
     assert_equal [ "from@example.com" ], email.from
-    assert_equal [ @card_application.user.email ], email.to
+    assert_equal [ @card_application.applicant.email ], email.to
     assert_equal "【Xard】クレジットカード審査結果のお知らせ", email.subject
     assert_match "審査の結果、カードが承認されました", email.body.to_s
   end
@@ -28,7 +28,7 @@ class ApplicationMailerTest < ActionMailer::TestCase
     end
 
     assert_equal [ "from@example.com" ], email.from
-    assert_equal [ @card_application.user.email ], email.to
+    assert_equal [ @card_application.applicant.email ], email.to
     assert_equal "【Xard】クレジットカード審査結果のお知らせ", email.subject
     assert_match "今回はカードの発行を見送らせていただくことになりました", email.body.to_s
   end

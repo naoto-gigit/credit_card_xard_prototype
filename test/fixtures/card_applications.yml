@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user: one
+  applicant: one (User)
   status: "審査中"
   document_type: "運転免許証"
   document_number: "123456789012"
@@ -15,7 +15,7 @@ one:
   other_debt: 100
 
 two:
-  user: two
+  applicant: two (User)
   status: "承認"
   document_type: "マイナンバーカード"
   document_number: "987654321098"

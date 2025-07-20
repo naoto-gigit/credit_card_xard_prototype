@@ -10,6 +10,9 @@ module Webhooks
 
     # POST /webhooks/credit_scores
     def create
+      Rails.logger.info "====== CreditScores Webhook Received ======"
+      Rails.logger.info "Params: #{params.inspect}"
+
       card_application = CardApplication.find_by(id: params[:card_application_id])
       credit_score = params[:credit_score].to_i
 
@@ -24,14 +27,23 @@ module Webhooks
       # スコアに基づいて与信判断を行う（甘めの基準）
       decision, limit = decide_credit(credit_score)
 
+      Rails.logger.info "Decision: #{decision}, Limit: #{limit}"
+
       # 審査結果と利用限度額を更新
-      card_application.update(
+      if card_application.update(
         credit_decision: decision,
         credit_limit: limit,
         status: "scoring_completed"
       )
+        # ��認された場合はカード発行ジョブを起動
+        if decision == "approved"
+          CardIssuanceJob.perform_later(card_application)
+        end
 
-      render json: { message: "Credit score processed successfully." }, status: :ok
+        render json: { message: "Credit score processed successfully." }, status: :ok
+      else
+        render json: { errors: card_application.errors.full_messages }, status: :unprocessable_entity
+      end
     end
 
     private

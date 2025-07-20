@@ -36,7 +36,7 @@ class Api::V1::CreditScoringsController < ApplicationController
   private
 
   def send_webhook(card_application, credit_score)
-    webhook_url = Rails.application.routes.url_helpers.webhooks_credit_score_url(host: "localhost:3000")
+    webhook_url = Rails.application.routes.url_helpers.webhooks_credit_scores_url(host: "localhost:3000")
     payload = {
       card_application_id: card_application.id,
       credit_score: credit_score

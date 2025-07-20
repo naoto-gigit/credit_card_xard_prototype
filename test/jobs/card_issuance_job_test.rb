@@ -34,7 +34,7 @@ class CardIssuanceJobTest < ActiveJob::TestCase
 
     # 作成されたカードの情報を検証
     new_card = Card.last
-    assert_equal @card_application.user, new_card.user
+    assert_equal @card_application.applicant, new_card.user
     assert_equal "crd_test12345", new_card.xard_card_id
     mock_http.verify # 期待通りにメソッドが呼ばれたか検証
   end

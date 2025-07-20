@@ -19,7 +19,7 @@ class CardIssuanceJob < ApplicationJob
     http = Net::HTTP.new(uri.host, uri.port)
     request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
     request.body = {
-      user_id: card_application.user_id,
+      user_id: card_application.applicant_id,
       credit_limit: card_application.credit_limit
     }.to_json
 
@@ -33,7 +33,7 @@ class CardIssuanceJob < ApplicationJob
 
       # 受け取ったデータでCardレコードを作成
       Card.create!(
-        user: card_application.user,
+        user: card_application.applicant,
         xard_card_id: card_data["xard_card_id"],
         last_4_digits: card_data["last_4_digits"],
         card_type: card_data["card_type"],

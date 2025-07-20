@@ -4,11 +4,11 @@ class ApplicationMailer < ActionMailer::Base
 
   def send_approval_email(card_application)
     @card_application = card_application
-    mail(to: @card_application.user.email, subject: "【Xard】クレジットカード審査結果のお知らせ")
+    mail(to: @card_application.applicant.email, subject: "【Xard】クレジットカード審査結果のお知らせ")
   end
 
   def send_rejection_email(card_application)
     @card_application = card_application
-    mail(to: @card_application.user.email, subject: "【Xard】クレジットカード審査結果のお知らせ")
+    mail(to: @card_application.applicant.email, subject: "【Xard】クレジットカード審査結果のお知らせ")
   end
 end

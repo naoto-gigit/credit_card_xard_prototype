@@ -19,7 +19,9 @@ class User < ApplicationRecord
   # ユーザーは複数のクレジットカードを持つことができます。
   has_many :cards
   # ユーザーは複数のカード申し込みを持つことができます。
-  has_many :card_applications
+  has_many :card_applications, as: :applicant
+  # ユーザーは法人に所属することができます。
+  belongs_to :corporation, optional: true
   # ユーザーは複数の利用明細を持つことができます。
   has_many :statements
   # ユーザーはカードを通じて複数の取引を持つことができます。

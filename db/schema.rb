@@ -10,9 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_19_044742) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_19_171634) do
   create_table "card_applications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.string "status"
     t.string "document_type"
     t.string "document_number"
@@ -29,7 +28,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_19_044742) do
     t.integer "credit_limit"
     t.string "credit_decision"
     t.integer "credit_score"
-    t.index ["user_id"], name: "index_card_applications_on_user_id"
+    t.string "applicant_type"
+    t.bigint "applicant_id"
+    t.index ["applicant_type", "applicant_id"], name: "index_card_applications_on_applicant"
   end
 
   create_table "cards", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -41,6 +42,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_19_044742) do
     t.datetime "issued_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "corporations", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "name"
+    t.string "name_kana"
+    t.string "registration_number"
+    t.string "corporate_type"
+    t.date "establishment_date"
+    t.text "address"
+    t.string "phone_number"
+    t.string "website"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["registration_number"], name: "index_corporations_on_registration_number", unique: true
   end
 
   create_table "payments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -86,12 +101,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_19_044742) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.bigint "corporation_id"
+    t.index ["corporation_id"], name: "index_users_on_corporation_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "card_applications", "users"
   add_foreign_key "payments", "statements"
   add_foreign_key "statements", "users"
   add_foreign_key "transactions", "cards"
+  add_foreign_key "users", "corporations"
 end
