@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   end
 
   # == 認証が必要なルート ==
+  # 法人登録用のルートを定義します。
+  resources :corporations, only: %i[new create]
   # カード申し込み用のルートを定義します。
   resources :card_applications, only: %i[new create]
   # 取引履歴表示用のルートを定義します。

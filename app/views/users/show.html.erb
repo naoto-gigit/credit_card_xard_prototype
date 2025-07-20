@@ -33,4 +33,15 @@
 <% end %>
 
 <hr>
+
+<h2>法人情報</h2>
+<% if @user.corporation.present? %>
+  <p><strong>法人名:</strong> <%= @user.corporation.name %></p>
+  <%# 他の法人情報も必要に応じて表示 %>
+<% else %>
+  <p>法人情報はまだ登録されていません。</p>
+  <%= link_to "法人情報を登録する", new_corporation_path, class: "btn btn-success" %>
+<% end %>
+
+<hr>
 <%= link_to "トップページへ戻る", root_path %>

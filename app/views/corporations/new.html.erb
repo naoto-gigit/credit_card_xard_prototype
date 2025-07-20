@@ -1,0 +1,59 @@
+<h1>法人情報登録</h1>
+
+<%= form_with(model: @corporation, url: corporations_path) do |form| %>
+  <% if @corporation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@corporation.errors.count, "error") %> prohibited this corporation from being saved:</h2>
+
+      <ul>
+        <% @corporation.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name, "法人名" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name_kana, "法人名（カナ）" %>
+    <%= form.text_field :name_kana %>
+  </div>
+
+  <div class="field">
+    <%= form.label :registration_number, "法人番号" %>
+    <%= form.text_field :registration_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :corporate_type, "法人種別" %>
+    <%= form.text_field :corporate_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :establishment_date, "設立年月日" %>
+    <%= form.date_field :establishment_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address, "住所" %>
+    <%= form.text_area :address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone_number, "電話番号" %>
+    <%= form.text_field :phone_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :website, "ウェブサイト" %>
+    <%= form.text_field :website %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "登録" %>
+  </div>
+<% end %>
