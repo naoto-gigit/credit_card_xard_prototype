@@ -13,7 +13,12 @@
           <p><strong>支払期日:</strong> <%= @statement.due_date.strftime("%Y年%m月%d日") %></p>
         </div>
         <div class="col-md-6 text-md-end">
-          <p class="h4"><small>ご請求額</small><br><strong><%= number_to_currency(@statement.amount, unit: "円", precision: 0) %></strong></p>
+          <p class="h5 mb-2"><small>ご利用額</small><br><strong><%= number_to_currency(@statement.amount, unit: "円", precision: 0) %></strong></p>
+          <% if @statement.late_payment_charge > 0 %>
+            <p class="h5 mb-2 text-danger"><small>遅延損害金</small><br><strong><%= number_to_currency(@statement.late_payment_charge, unit: "円", precision: 2) %></strong></p>
+            <hr>
+            <p class="h4"><small>お支払総額</small><br><strong><%= number_to_currency(@statement.total_due_amount, unit: "円", precision: 2) %></strong></p>
+          <% end %>
         </div>
       </div>
 

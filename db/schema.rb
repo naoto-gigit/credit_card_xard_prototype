@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_20_105902) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_21_000054) do
   create_table "card_applications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "status"
     t.string "document_type"
@@ -98,6 +98,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_20_105902) do
     t.string "status", default: "pending", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "late_payment_charge", precision: 10, scale: 2, default: "0.0", null: false
     t.index ["status"], name: "index_statements_on_status"
     t.index ["user_id"], name: "index_statements_on_user_id"
   end

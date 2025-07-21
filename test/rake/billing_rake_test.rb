@@ -10,7 +10,8 @@ class BillingRakeTest < ActiveSupport::TestCase
   end
 
   test "create_statements_task should create a new statement for users with transactions" do
-    # 既存の請求書をクリア
+    # 既存の支払いと請求書をクリア
+    Payment.destroy_all
     Statement.destroy_all
 
     # タスクを実行すると、取引のあるユーザー（one）の請求書が1件作成されることを確認
