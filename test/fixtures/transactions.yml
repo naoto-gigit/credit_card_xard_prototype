@@ -3,7 +3,7 @@
 one:
   card: one
   merchant_name: MyString
-  amount: 1
+  amount: 887
   transacted_at: 2025-07-10 16:40:43
 
 two:

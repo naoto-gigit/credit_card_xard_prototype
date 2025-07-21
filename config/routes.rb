@@ -26,6 +26,8 @@ Rails.application.routes.draw do
   end
   # 取引履歴表示用のルートを定義します。
   resources :transactions, only: [ :index ]
+  # ポイント取引履歴表示用のルートを定義します。
+  resources :point_transactions, only: [ :index ]
   # 利用明細表示用のルートを定義します。
   resources :statements, only: %i[index show]
   # ユーザープロフィールページ用のルートを定義します。
@@ -57,6 +59,9 @@ Rails.application.routes.draw do
       post "limit_increase_scorings", to: "limit_increase_scorings#create"
       # カード発行用のルートを定義します。
       post "cards/issue", to: "cards#issue"
+
+      # ポイント付与用のルートを定義します。（モック）
+      post "community_points/grant", to: "community_points#grant"
     end
   end
 

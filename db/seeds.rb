@@ -8,6 +8,13 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
+# 開発用のログインユーザーを作成
+User.find_or_create_by!(email: 'dev@example.com') do |user|
+  user.password = 'password'
+  user.password_confirmation = 'password'
+  user.name = '開発 太郎'
+end
+
 # --- 動作確認用の延滞データを作成 ---
 user = User.first
 if user

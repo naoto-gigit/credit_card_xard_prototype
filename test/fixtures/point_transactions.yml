@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  point_owner: one (User)
+  source_transaction: one
+  points: 10
+  status: sent
+
+two:
+  point_owner: two (User)
+  source_transaction: two
+  points: 20
+  status: pending

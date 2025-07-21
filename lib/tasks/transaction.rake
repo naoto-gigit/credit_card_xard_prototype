@@ -1,4 +1,6 @@
 # lib/tasks/transaction.rake
+require "net/http"
+require "uri"
 
 namespace :transaction do
   desc "Simulate a card transaction and send a webhook"

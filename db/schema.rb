@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_21_000054) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_21_004229) do
   create_table "card_applications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "status"
     t.string "document_type"
@@ -89,6 +89,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_000054) do
     t.index ["statement_id"], name: "index_payments_on_statement_id"
   end
 
+  create_table "point_transactions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "point_owner_type", null: false
+    t.bigint "point_owner_id", null: false
+    t.bigint "source_transaction_id"
+    t.integer "points", null: false
+    t.string "status", default: "pending", null: false
+    t.text "external_api_response"
+    t.datetime "sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["point_owner_type", "point_owner_id"], name: "index_point_transactions_on_point_owner"
+    t.index ["source_transaction_id"], name: "index_point_transactions_on_source_transaction_id"
+  end
+
   create_table "statements", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.date "billing_period_start_date"
@@ -134,6 +148,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_21_000054) do
   add_foreign_key "limit_increase_applications", "cards"
   add_foreign_key "limit_increase_applications", "users"
   add_foreign_key "payments", "statements"
+  add_foreign_key "point_transactions", "transactions", column: "source_transaction_id"
   add_foreign_key "statements", "users"
   add_foreign_key "transactions", "cards"
   add_foreign_key "users", "corporations"

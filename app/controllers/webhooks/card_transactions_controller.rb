@@ -21,12 +21,16 @@ module Webhooks
           return
         end
 
-        Transaction.create!(
+        transaction = Transaction.create!(
           card: card,
           merchant_name: params[:merchant_name],
           amount: params[:amount],
           transacted_at: params[:transacted_at]
         )
+
+        # ポイント付与ジョブをキューに追加
+        GrantCommunityPointsJob.perform_later(transaction)
+
         head :ok
       else
         head :not_found

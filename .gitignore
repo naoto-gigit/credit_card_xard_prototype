@@ -32,3 +32,4 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+\n# Ignore environment-specific credentials files.\n/config/credentials/*.yml

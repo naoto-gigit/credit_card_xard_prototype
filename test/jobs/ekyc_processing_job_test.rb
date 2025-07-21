@@ -1,15 +1,13 @@
 require "test_helper"
+require "webmock/minitest"
 
 class EkycProcessingJobTest < ActiveJob::TestCase
   test "should call eKYC API mock" do
     # テスト用のカード申し込みデータを作成
     card_application = card_applications(:one)
 
-    # Net::HTTP.any_instance.expects(:request).once
-    # 上記はMinitestのモック機能ですが、設定が複雑なので、
-    # ここでは、ジョブがエラーなく実行されること、
-    # そして、ログにAPI呼び出しの形跡が残ることをもって、
-    # シンプルにテストします。
+    stub_request(:post, "http://localhost:3000/api/v1/ekyc_verifications")
+      .to_return(status: 200, body: "", headers: {})
 
     # ジョブを実行
     perform_enqueued_jobs do
