@@ -14,20 +14,26 @@
   <body>
     <%= render "layouts/header" %>
 
-    <div class="container page-container">
-      <main>
-        <% if notice %>
-          <div class="alert alert-info" role="alert">
-            <%= notice %>
-          </div>
-        <% end %>
-        <% if alert %>
-          <div class="alert alert-warning" role="alert">
-            <%= alert %>
-          </div>
-        <% end %>
+    <div class="d-flex body-wrapper">
+      <% if user_signed_in? %>
+        <%= render "layouts/sidebar" %>
+      <% end %>
 
-        <%= yield %>
+      <main class="main-content flex-grow-1 py-4 px-4">
+        <div class="page-container container">
+          <% if notice %>
+            <div class="alert alert-info" role="alert">
+              <%= notice %>
+            </div>
+          <% end %>
+          <% if alert %>
+            <div class="alert alert-warning" role="alert">
+              <%= alert %>
+            </div>
+          <% end %>
+
+          <%= yield %>
+        </div>
       </main>
     </div>
 

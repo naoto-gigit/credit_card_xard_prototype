@@ -5,6 +5,6 @@ class PointTransactionsController < ApplicationController
 
   # GET /point_transactions
   def index
-    @point_transactions = PointTransaction.order(created_at: :desc)
+    @pagy, @point_transactions = pagy(PointTransaction.where(point_owner: current_user).order(created_at: :desc))
   end
 end

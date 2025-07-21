@@ -25,7 +25,6 @@ class GrantCommunityPointsJob < ApplicationJob
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = uri.scheme == "https"
     request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/json" })
-    request["Authorization"] = "Bearer #{api_key}"
     request.body = {
       user_id: point_transaction.point_owner_id,
       user_type: point_transaction.point_owner_type,

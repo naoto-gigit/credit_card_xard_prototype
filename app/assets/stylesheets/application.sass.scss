@@ -34,3 +34,39 @@ body {
   position: relative;
   left: -2px;
 }
+
+.btn-sidebar-vertical {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+  height: 85px; /* ボタンの高さを調整 */
+
+  i {
+    font-size: 2.2rem; /* アイコンを微調整 */
+    margin-bottom: 0.3rem;
+  }
+
+  span {
+    font-size: 0.8rem; /* 文字を小さく */
+    line-height: 1.2;
+  }
+}
+
+.body-wrapper {
+  display: flex;
+  height: calc(100vh - 56px); /* ヘッダーの高さを引いた分を全体の高さに */
+}
+
+#sidebarMenu {
+  width: 120px;
+  flex-shrink: 0; /* サイドバーが縮まないようにする */
+}
+
+.main-content {
+  flex: 1; /* 残りのスペースをすべて埋める */
+  min-height: 0; /* Flexboxの高さ計算を安定させるおまじない */
+  overflow-y: auto; /* このエリアだけスクロール */
+}

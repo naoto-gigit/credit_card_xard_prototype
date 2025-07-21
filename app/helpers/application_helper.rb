@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include Pagy::Frontend
   def status_badge_class(status)
     case status
     when "pending"

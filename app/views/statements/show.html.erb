@@ -26,7 +26,7 @@
       <% transactions = @statement.user.transactions.where(transacted_at: @statement.billing_period_start_date..@statement.billing_period_end_date) %>
       <% if transactions.any? %>
         <div class="table-responsive">
-          <table class="table table-sm table-striped">
+          <table class="table table-sm table-striped table-hover">
             <thead>
               <tr>
                 <th>ご利用日</th>
@@ -37,7 +37,7 @@
             <tbody>
               <% transactions.each do |transaction| %>
                 <tr>
-                  <td><%= transaction.transacted_at.strftime("%Y年%m月%d日") %></td>
+                  <td><%= transaction.transacted_at.strftime("%Y/%m/%d") %></td>
                   <td><%= transaction.merchant_name %></td>
                   <td class="text-end"><%= number_to_currency(transaction.amount, unit: "円", precision: 0) %></td>
                 </tr>

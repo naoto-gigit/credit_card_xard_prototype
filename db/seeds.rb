@@ -9,10 +9,11 @@
 #   end
 
 # 開発用のログインユーザーを作成
-User.find_or_create_by!(email: 'dev@example.com') do |user|
-  user.password = 'password'
-  user.password_confirmation = 'password'
+User.find_or_initialize_by(email: 'a@d').tap do |user|
+  user.password = 'p'
+  user.password_confirmation = 'p'
   user.name = '開発 太郎'
+  user.save(validate: false)
 end
 
 # --- 動作確認用の延滞データを作成 ---

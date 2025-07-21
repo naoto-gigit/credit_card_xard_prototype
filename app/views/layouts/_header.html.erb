@@ -7,7 +7,7 @@
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
         <% if user_signed_in? %>
-          <%= button_to destroy_user_session_path, method: :delete, class: "btn btn-outline-light btn-header rounded-0 btn-icon-vertical" do %>
+          <%= button_to destroy_user_session_path, method: :delete, class: "btn btn-success btn-header rounded-0 btn-icon-vertical" do %>
             <i class="bi bi-box-arrow-right"></i>
             <span>ログアウト</span>
           <% end %>

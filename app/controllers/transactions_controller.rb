@@ -13,7 +13,6 @@ class TransactionsController < ApplicationController
   #
   # ログインユーザーの利用明細一覧を表示します。
   def index
-    # ログインユーザーの全取引を取得し、取引日時の降順で並び替えます。
-    @transactions = current_user.transactions.order(transacted_at: :desc)
+    @pagy, @transactions = pagy(current_user.transactions.order(transacted_at: :desc))
   end
 end
