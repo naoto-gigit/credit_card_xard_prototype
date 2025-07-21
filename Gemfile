@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gem "rails", "~> 8.0.2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
-gem "dartsass-rails"
+gem "cssbundling-rails"
 # Use sqlite3 as the database for Active Record
 gem "mysql2"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -17,8 +17,6 @@ gem "turbo-rails"
 gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
-gem "bootstrap", "~> 5.3.3"
-gem "jquery-rails"
 gem "devise"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]

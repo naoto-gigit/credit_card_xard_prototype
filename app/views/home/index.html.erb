@@ -1,13 +1,100 @@
-<h1>クレジットカード Xard</h1>
-<p>リベシティへようこそ！</p>
+<div class="px-4 pt-5 my-5 text-center">
+  <i class="bi bi-credit-card-2-front-fill display-1 text-primary"></i>
+  <h1 class="display-4 fw-bold mt-4">一枚のカードが、日常を変える。</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">先進の機能と、洗練されたデザイン。あなたの毎日を、もっとスマートに、もっと豊かにする一枚がここに。</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+      <% if user_signed_in? %>
+        <%= link_to "マイページへ", profile_path, class: "btn btn-primary btn-lg px-4 me-sm-3" %>
+        <%= link_to "カード申請を行う", new_card_application_path, class: "btn btn-outline-secondary btn-lg px-4" %>
+      <% else %>
+        <%= link_to "ログイン", new_user_session_path, class: "btn btn-primary btn-lg px-4 me-sm-3" %>
+        <%= link_to "新規登録", new_user_registration_path, class: "btn btn-outline-secondary btn-lg px-4" %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<hr>
+<div class="container px-4 py-5" id="featured-3">
+  <h2 class="pb-2 text-center">特徴</h2>
+  <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    <div class="col">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+            <i class="bi bi-credit-card-2-front"></i>
+          </div>
+          <h3 class="fs-2">モダンなカード</h3>
+          <p>日々の利用シーンを彩る、洗練されたデザイン。縦型の券面は、決済端末での使いやすさも考慮。あなたの個性を引き立てる、複数のカラーバリエーションをご用意しています。</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+            <i class="bi bi-graph-up-arrow"></i>
+          </div>
+          <h3 class="fs-2">ポイントプログラム</h3>
+          <p>ご利用金額に応じて、ポイントがどんどん貯まる。貯まったポイントは、ショッピングやマイルへの交換はもちろん、カード利用額への充当も可能。あなたの「好き」を、もっとお得に。</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+            <i class="bi bi-shield-lock"></i>
+          </div>
+          <h3 class="fs-2">高い安全性</h3>
+          <p>ICチップの搭載はもちろん、24時間365日の不正利用検知システムで、あなたのカードを常に見守ります。万が一の時も、オンラインで迅速に利用停止・再発行手続きが可能です。</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+            <i class="bi bi-phone-fill"></i>
+          </div>
+          <h3 class="fs-2">スマホアプリ連携</h3>
+          <p>利用履歴の確認から支払い設定まで、すべてがアプリ一つで完結。プッシュ通知で利用状況をリアルタイムにお知らせし、使いすぎも防げます。</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+            <i class="bi bi-wifi"></i>
+          </div>
+          <h3 class="fs-2">スピーディーな決済</h3>
+          <p>タッチ決済に対応しており、サインや暗証番号なしでスピーディーにお支払いが完了。日常のちょっとしたお買い物も、もっとスムーズになります。</p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card shadow-sm h-100">
+        <div class="card-body text-center">
+          <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+            <i class="bi bi-gem"></i>
+          </div>
+          <h3 class="fs-2">充実の会員特典</h3>
+          <p>提携レストランでのご優待や、空港ラウンジの利用特典など、会員様限定の特別なサービスを多数ご用意。あなたの毎日を、もっと豊かに彩ります。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<% if user_signed_in? %>
-  <p>こんにちは、<%= current_user.email %>さん</p>
-  <%= link_to "マイページへ", profile_path %>
-  <br>
-  <%= link_to "カード申請を行う", new_card_application_path %>
-<% else %>
-  <p>サービスを利用するには、ログインまたは新規登録が必要です。</p>
+<% unless user_signed_in? %>
+<div class="container py-5">
+  <div class="card shadow-sm">
+    <div class="card-body p-5 text-center">
+      <h2 class="display-5 fw-bold">準備はできましたか？</h2>
+      <p class="fs-4">あなただけの特別な体験へ。今すぐ登録して、新しい日常を始めましょう。</p>
+      <%= link_to "無料で会員登録", new_user_registration_path, class: "btn btn-primary btn-lg" %>
+    </div>
+  </div>
+</div>
 <% end %>
