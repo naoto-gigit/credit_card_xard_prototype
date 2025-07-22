@@ -1,0 +1,74 @@
+<div class="container mt-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>カード管理</h1>
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" id="newApplicationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        新しいカードを申し込む
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="newApplicationDropdown">
+        <li><%= link_to "個人カードを申し込む", new_card_application_path, class: "dropdown-item" %></li>
+        <% if @user.corporation.present? %>
+          <li><%= link_to "法人カードを申し込む", new_corporation_card_application_path(@user.corporation), class: "dropdown-item" %></li>
+        <% else %>
+          <li><hr class="dropdown-divider"></li>
+          <li><%= link_to "法人情報を登録する", new_corporation_path, class: "dropdown-item" %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <hr>
+
+  <h2 class="h4 mb-3">申請中のカード</h2>
+  <div class="card mb-4">
+    <div class="card-body">
+      <% if @card_applications.any? || @corporate_card_applications.any? %>
+        <ul class="list-group list-group-flush">
+          <% (@card_applications + @corporate_card_applications).sort_by(&:created_at).reverse.each do |app| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <strong><%= app.applicant.is_a?(User) ? '個人カード' : '法人カード' %></strong>
+                <small class="text-muted d-block">申請日: <%= l app.created_at, format: :long %></small>
+              </div>
+              <div>
+                <span class="badge bg-info me-2"><%= app.status %></span>
+                <% if app.applicant.is_a?(Corporation) %>
+                  <%= link_to "詳細を見る", corporation_card_application_path(app.applicant, app), class: "btn btn-outline-secondary btn-sm" %>
+                <% else %>
+                  <%= link_to "詳細を見る", card_application_path(app), class: "btn btn-outline-secondary btn-sm" %>
+                <% end %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="card-text text-muted">現在申請中のカードはありません。</p>
+      <% end %>
+    </div>
+  </div>
+
+  <h2 class="h4 mb-3">保有カード一覧</h2>
+  <div class="card">
+    <div class="card-body">
+      <% if @cards.any? %>
+        <ul class="list-group list-group-flush">
+          <% @cards.each do |card| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <div>
+                <strong><%= card.card_type %></strong>
+                <span class="text-muted d-block">カード番号 (下4桁): <%= card.last_4_digits %></span>
+              </div>
+              <div>
+                <%= link_to "利用明細", statements_path, class: "btn btn-primary btn-sm me-2" %>
+                <%= link_to "一時増額申請", new_card_limit_increase_application_path(card), class: "btn btn-outline-primary btn-sm" %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="card-text text-muted">現在保有しているカードはありません。</p>
+      <% end %>
+    </div>
+  </div>
+
+</div>

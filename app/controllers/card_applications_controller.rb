@@ -23,12 +23,18 @@ class CardApplicationsController < ApplicationController
     if @card_application.save
       # eKYC処理ジョブをキューに追加します。
       EkycProcessingJob.perform_later(@card_application.id)
-      # プロフィールページにリダイレクトし、成功メッセージを表示します��
+      # プロフィールページにリダイレクトし、成功メッセージを表示します。
       redirect_to profile_path, notice: "eKYC申請を受け付けました。処理が完了次第、結果をお知らせします。"
     else
       # 保存に失敗した場合は、フォームを再表示します。
       render :new, status: :unprocessable_entity
     end
+  end
+
+  # GET /card_applications/:id
+  # カード申し込みの詳細を表示します。
+  def show
+    @card_application = current_user.card_applications.find(params[:id])
   end
 
   private

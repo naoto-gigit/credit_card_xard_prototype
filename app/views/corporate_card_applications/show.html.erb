@@ -1,0 +1,13 @@
+<%# app/views/corporate_card_applications/show.html.erb %>
+<div class="card mb-4">
+  <div class="card-header">
+    <h4>法人情報</h4>
+  </div>
+  <div class="card-body">
+    <p><strong>法人名:</strong> <%= @card_application.applicant.name %></p>
+    <p><strong>法人番号:</strong> <%= @card_application.applicant.corporate_number %></p>
+  </div>
+</div>
+
+<%= render "card_applications/card_application_details", card_application: @card_application %>
+<%= link_to '戻る', cards_path, class: 'btn btn-secondary mt-3' %>

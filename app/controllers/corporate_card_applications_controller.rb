@@ -27,6 +27,11 @@ class CorporateCardApplicationsController < ApplicationController
     end
   end
 
+  # GET /corporations/:corporation_id/card_applications/:id
+  def show
+    @card_application = @corporation.card_applications.find(params[:id])
+  end
+
   private
 
   def set_corporation

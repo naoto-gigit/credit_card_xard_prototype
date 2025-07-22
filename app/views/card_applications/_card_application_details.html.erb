@@ -1,0 +1,22 @@
+<%# app/views/card_applications/_card_application_details.html.erb %>
+<div class="card">
+  <div class="card-header">
+    <h4>申し込み情報詳細</h4>
+  </div>
+  <div class="card-body">
+    <p><strong>ステータス:</strong> <span class="badge bg-info"><%= card_application.status %></span></p>
+    <p><strong>申込日:</strong> <%= l card_application.created_at, format: :long %></p>
+    <hr>
+    <p><strong>氏名:</strong> <%= card_application.full_name %></p>
+    <p><strong>生年月日:</strong> <%= card_application.date_of_birth %></p>
+    <p><strong>住所:</strong> <%= card_application.address %></p>
+    <p><strong>書類種別:</strong> <%= card_application.document_type %></p>
+    <p><strong>書類番号:</strong> <%= card_application.document_number %></p>
+    <hr>
+    <p><strong>勤務先:</strong> <%= card_application.company_name %></p>
+    <p><strong>雇用形態:</strong> <%= card_application.employment_type %></p>
+    <p><strong>勤続年数:</strong> <%= card_application.years_of_service %>年</p>
+    <p><strong>年収:</strong> <%= number_to_currency(card_application.annual_income, unit: "万円", precision: 0) %></p>
+    <p><strong>他社借入額:</strong> <%= number_to_currency(card_application.other_debt, unit: "万円", precision: 0) %></p>
+  </div>
+</div>

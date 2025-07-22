@@ -15,13 +15,13 @@ Rails.application.routes.draw do
   # 法人登録用のルートを定義します。
   resources :corporations, only: %i[new create] do
     # 法人カード申し込み用のルート（ネスト）
-    resources :card_applications, only: %i[new create], controller: "corporate_card_applications"
+    resources :card_applications, only: %i[new create show], controller: "corporate_card_applications"
   end
   # 個人カード申し込み用のルートを定義します。
-  resources :card_applications, only: %i[new create]
+  resources :card_applications, only: %i[new create show]
 
   # カード関連（増額申請など）のルートを定義します。
-  resources :cards, only: [] do
+  resources :cards, only: [:index] do
     resources :limit_increase_applications, only: %i[new create]
   end
   # 取引履歴表示用のルートを定義します。
