@@ -1,6 +1,6 @@
 $success: #1e7e34; /* Final, slightly darker button color */
 
-@import "bootstrap/scss/bootstrap";
+@use "bootstrap/scss/bootstrap";
 
 body {
   background-color: #fdfbf3; /* Final cream color */

@@ -14,5 +14,9 @@ class UsersController < ApplicationController
     @user = current_user
     # ユーザーの最新のカード申し込みを取得します。
     @latest_card_application = @user.card_applications.order(created_at: :desc).first
+    # ユーザーの法人に関連する最新のカード申し込みを取得します。
+    if @user.corporation.present?
+      @latest_corporate_card_application = @user.corporation.card_applications.order(created_at: :desc).first
+    end
   end
 end

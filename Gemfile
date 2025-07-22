@@ -5,6 +5,7 @@ gem "rails", "~> 8.0.2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 gem "cssbundling-rails"
+gem "sass-embedded"
 # Use sqlite3 as the database for Active Record
 gem "mysql2"
 # Use the Puma web server [https://github.com/puma/puma]

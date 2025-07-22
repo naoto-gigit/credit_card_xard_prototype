@@ -1,63 +1,114 @@
-<h1>マイページ</h1>
+<div class="container mt-5">
+  <h1>マイページ</h1>
+  <p class="lead">ログイン中のメールアドレス: <%= @user.email %></p>
 
-<p><strong>ログイン中のメールアドレス:</strong> <%= @user.email %></p>
+  <hr>
 
-<hr>
+  <% if @latest_card_application %>
+    <div class="card mb-4">
+      <div class="card-header">
+        <h2 class="h5 mb-0">カード申請情報</h2>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h5 class="card-title">申請状況</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>申請日時:</strong> <%= l @latest_card_application.created_at, format: :long %></li>
+              <li class="list-group-item"><strong>ステータス:</strong> <span class="badge bg-info"><%= @latest_card_application.status %></span></li>
+              <li class="list-group-item"><strong>審査結果:</strong> <span class="badge bg-success"><%= @latest_card_application.credit_decision %></span></li>
+              <li class="list-group-item"><strong>利用限度額:</strong> <%= @latest_card_application.credit_limit %>万円</li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <h5 class="card-title">本人確認情報</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>書類種別:</strong> <%= @latest_card_application.document_type %></li>
+              <li class="list-group-item"><strong>書類番号:</strong> <%= @latest_card_application.document_number %></li>
+              <li class="list-group-item"><strong>氏名:</strong> <%= @latest_card_application.full_name %></li>
+              <li class="list-group-item"><strong>生年月日:</strong> <%= @latest_card_application.date_of_birth %></li>
+              <li class="list-group-item"><strong>住所:</strong> <%= @latest_card_application.address %></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-md-12">
+            <h5 class="card-title">属性情報</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>勤務先名:</strong> <%= @latest_card_application.company_name %></li>
+              <li class="list-group-item"><strong>雇用形態:</strong> <%= @latest_card_application.employment_type %></li>
+              <li class="list-group-item"><strong>勤続年数:</strong> <%= @latest_card_application.years_of_service %>年</li>
+              <li class="list-group-item"><strong>年収:</strong> <%= @latest_card_application.annual_income %>万円</li>
+              <li class="list-group-item"><strong>他社借入額:</strong> <%= @latest_card_application.other_debt %>万円</li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-3">
+          <%= link_to "取引履歴", transactions_path, class: "btn btn-info" %>
+          <%= link_to "利用明細一覧", statements_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <div class="alert alert-info">
+      カード申請はまだありません。
+      <%= link_to "カード申請を行う", new_card_application_path, class: "btn btn-primary btn-sm" %>
+    </div>
+  <% end %>
 
-<% if @latest_card_application %>
-  <h2>カード申請情報</h2>
-  <p><strong>申請日時:</strong> <%= l @latest_card_application.created_at, format: :long %></p>
-  <p><strong>ステータス:</strong> <%= @latest_card_application.status %></p>
-  <p><strong>審査結果:</strong> <%= @latest_card_application.credit_decision %></p>
-  <p><strong>利用限度額:</strong> <%= @latest_card_application.credit_limit %>万円</p>
+  <% if @latest_corporate_card_application %>
+    <div class="card mb-4">
+      <div class="card-header">
+        <h2 class="h5 mb-0">法人カード申請情報</h2>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">申請状況</h5>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><strong>申請日時:</strong> <%= l @latest_corporate_card_application.created_at, format: :long %></li>
+          <li class="list-group-item"><strong>ステータス:</strong> <span class="badge bg-info"><%= @latest_corporate_card_application.status %></span></li>
+          <li class="list-group-item"><strong>審査結果:</strong> <span class="badge bg-success"><%= @latest_corporate_card_application.credit_decision %></span></li>
+          <li class="list-group-item"><strong>利用限度額:</strong> <%= @latest_corporate_card_application.credit_limit %>万円</li>
+        </ul>
+      </div>
+    </div>
+  <% end %>
 
-  <h3>本人確認情報</h3>
-  <p><strong>書類種別:</strong> <%= @latest_card_application.document_type %></p>
-  <p><strong>書類番号:</strong> <%= @latest_card_application.document_number %></p>
-  <p><strong>氏名:</strong> <%= @latest_card_application.full_name %></p>
-  <p><strong>生年月日:</strong> <%= @latest_card_application.date_of_birth %></p>
-  <p><strong>住所:</strong> <%= @latest_card_application.address %></p>
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2 class="h5 mb-0">保有カード情報</h2>
+    </div>
+    <div class="card-body">
+      <% if @user.cards.any? %>
+        <ul class="list-group">
+          <% @user.cards.each do |card| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <span><%= card.card_type %> (下4桁: <%= card.last_4_digits %>)</span>
+              <%= link_to "一時増額申請", new_card_limit_increase_application_path(card), class: "btn btn-outline-primary btn-sm" %>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="card-text">保有しているカードはありません。</p>
+      <% end %>
+    </div>
+  </div>
 
-  <h3>属性情報</h3>
-  <p><strong>勤務先名:</strong> <%= @latest_card_application.company_name %></p>
-  <p><strong>雇用形態:</strong> <%= @latest_card_application.employment_type %></p>
-  <p><strong>勤続年数:</strong> <%= @latest_card_application.years_of_service %>年</p>
-  <p><strong>年収:</strong> <%= @latest_card_application.annual_income %>万円</p>
-  <p><strong>他社借入額:</strong> <%= @latest_card_application.other_debt %>万円</p>
+  <div class="card mb-4">
+    <div class="card-header">
+      <h2 class="h5 mb-0">法人情報</h2>
+    </div>
+    <div class="card-body">
+      <% if @user.corporation.present? %>
+        <p><strong>法人名:</strong> <%= @user.corporation.name %></p>
+        <%# 他の法人情報も必要に応じて表示 %>
+        <%= link_to "法人カードを申し込む", new_corporation_card_application_path(@user.corporation), class: "btn btn-primary" %>
+      <% else %>
+        <p>法人情報はまだ登録されていません。</p>
+        <%= link_to "法人情報を登録する", new_corporation_path, class: "btn btn-success" %>
+      <% end %>
+    </div>
+  </div>
 
-  <%= link_to "取引履歴", transactions_path, class: "btn btn-info" %>
-  <%= link_to "利用明細一覧", statements_path, class: "btn btn-primary" %>
-<% else %>
-  <p>カード申請はまだありません。</p>
-  <%= link_to "カード申請を行う", new_card_application_path %>
-<% end %>
-
-<h2>保有カード情報</h2>
-<% if @user.cards.any? %>
-  <ul>
-    <% @user.cards.each do |card| %>
-      <li>
-        <%= card.card_type %> (下4桁: <%= card.last_4_digits %>) -
-        <%= link_to "一時増額申請", new_card_limit_increase_application_path(card) %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>保有しているカードはありません。</p>
-<% end %>
-
-<hr>
-
-<h2>法人情報</h2>
-<% if @user.corporation.present? %>
-  <p><strong>法人名:</strong> <%= @user.corporation.name %></p>
-  <%# 他の法人情報も必要に応じて表示 %>
-  <br>
-  <%= link_to "法人カードを申し込む", new_corporation_card_application_path(@user.corporation), class: "btn btn-primary" %>
-<% else %>
-  <p>法人情報はまだ登録されていません。</p>
-  <%= link_to "法人情報を登録する", new_corporation_path, class: "btn btn-success" %>
-<% end %>
-
-<hr>
-<%= link_to "トップページへ戻る", root_path %>
+  <hr>
+  <%= link_to "トップページへ戻る", root_path, class: "btn btn-secondary" %>
+</div>
