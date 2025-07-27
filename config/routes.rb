@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   resources :card_applications, only: %i[new create show]
 
   # カード関連（増額申請など）のルートを定義します。
-  resources :cards, only: [:index] do
+  resources :cards, only: [ :index ] do
     resources :limit_increase_applications, only: %i[new create]
   end
   # 取引履歴表示用のルートを定義します。
