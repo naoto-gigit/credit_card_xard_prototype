@@ -3,13 +3,21 @@ require "net/http"
 require "uri"
 
 namespace :transaction do
-  desc "Simulate a card transaction and send a webhook"
-  task simulate: :environment do
-    # 1. Find a random card to use
-    card = Card.order(Arel.sql("RAND()")).first
-    unless card
-      puts "No cards found to simulate a transaction."
-      return
+  desc "Simulate a card transaction and send a webhook. Specify CARD_ID to target a specific card."
+  task :simulate, [ :card_id ] => :environment do |t, args|
+    card = nil
+    if args[:card_id].present?
+      card = Card.find_by(id: args[:card_id])
+      unless card
+        puts "Card with ID ##{args[:card_id]} not found."
+        return
+      end
+    else
+      card = Card.order(Arel.sql("RAND()")).first
+      unless card
+        puts "No cards found to simulate a transaction."
+        return
+      end
     end
 
     # 2. Generate random transaction details

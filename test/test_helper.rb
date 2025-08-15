@@ -13,6 +13,9 @@ module ActiveSupport
     # Use the test queue adapter for Active Job
     ActiveJob::Base.queue_adapter = :test
 
+    # Include Factory Bot methods
+    include FactoryBot::Syntax::Methods
+
     # Add more helper methods to be used by all tests here...
     include Devise::Test::IntegrationHelpers
   end

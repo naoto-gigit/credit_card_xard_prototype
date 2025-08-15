@@ -24,8 +24,10 @@ class UserTest < ActiveSupport::TestCase
   #
   test "should have many cards as owner" do
     assert_respond_to @user, :cards
-    @user.cards.create!(xard_card_id: "test", last_4_digits: "1234")
-    assert_instance_of Card, @user.cards.first
+    card = create(:card, owner: @user)
+    @user.reload
+    assert_instance_of Card, @user.cards.last  # 最後に作成されたもの
+    assert_equal card, @user.cards.last
   end
 
   test "should have many statements" do
@@ -35,8 +37,10 @@ class UserTest < ActiveSupport::TestCase
 
   test "should have many transactions through cards" do
     assert_respond_to @user, :transactions
-    card = @user.cards.create!(xard_card_id: "test", last_4_digits: "1234")
-    card.transactions.create!(merchant_name: "test", amount: 100)
-    assert_instance_of Transaction, @user.transactions.first
+    card = create(:card, owner: @user)
+    transaction = create(:transaction, card: card)
+    @user.reload
+    assert_instance_of Transaction, @user.transactions.last  # 最後に作成されたもの
+    assert_equal transaction, @user.transactions.last
   end
 end

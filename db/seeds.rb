@@ -30,3 +30,18 @@ if user
 else
   puts "No users found. Skipping seed data creation."
 end
+
+# --- 開発ユーザーに紐づくカードを作成 ---
+user = User.find_by(email: 'a@d')
+if user && !user.cards.exists?
+  puts "Creating card for user: #{user.email}"
+  user.cards.create!(
+    xard_card_id: SecureRandom.uuid,
+    last_4_digits: '1234',
+    card_type: 'visa',
+    status: 'active',
+    issued_at: Time.current,
+    credit_limit: 500000
+  )
+  puts "Card created."
+end
